@@ -9,7 +9,7 @@ Module.register("MMM-ZAPTEC", {
   start: function() {
     Log.info("Starting module: " + this.name);
     this.chargerData = [];
-    this.getData();
+    this.sendSocketNotification("GET_CHARGER_DATA", this.config);
     this.scheduleUpdate();
   },
 
@@ -27,25 +27,6 @@ Module.register("MMM-ZAPTEC", {
     return wrapper;
   },
 
-  // Fetch charger data.
-  getData: function() {
-    Log.info("Fetching data for module: " + this.name);
-    var self = this;
-    var url = "https://api.zaptec.com/api/chargers/";
-    var token = this.config.bearerToken;
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.setRequestHeader("Authorization", "Bearer " + token);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-        self.chargerData = data;
-        self.updateDom();
-      }
-    };
-    xhr.send();
-  },
-
   // Schedule module update.
   scheduleUpdate: function(delay) {
     var self = this;
@@ -54,7 +35,20 @@ Module.register("MMM-ZAPTEC", {
       nextLoad = delay;
     }
     setTimeout(function() {
-      self.getData();
+      self.sendSocketNotification("GET_CHARGER_DATA", self.config);
     }, nextLoad);
   },
+
+  // Handle notifications from node_helper
+  socketNotificationReceived: function(notification, payload) {
+    if (notification === "CHARGER_DATA_RESULT") {
+      if (payload.error) {
+        Log.error(`Error getting charger data: ${payload.error}`);
+        return;
+      }
+      Log.info("Received charger data");
+      this.chargerData = payload.chargerData;
+      this.updateDom();
+    }
+  }
 });
