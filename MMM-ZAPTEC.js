@@ -37,7 +37,7 @@ Module.register("MMM-ZAPTEC", {
           operatingMode = charger.OperatingMode;
           break;
       }
-      chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
+      chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode + "    ";
       wrapper.appendChild(chargerWrapper);
     }
     return wrapper;
