@@ -17,7 +17,7 @@ module.exports = NodeHelper.create({
         method: "GET",
         url: "https://api.zaptec.com/api/chargers",
         headers: {
-          "X-API-KEY": payload.apiKey,
+          "Authorization": "Bearer " + payload.bearerToken,
           "accept": "text/plain"
         }
       };
