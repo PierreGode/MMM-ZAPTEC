@@ -15,7 +15,7 @@ Module.register("MMM-ZAPTEC", {
 
 getDom: function() {
   var wrapper = document.createElement("div");
-  wrapper.className = "small MMM-ZAPTEC";
+  wrapper.className = "small";
 
   for (var i = 0; i < this.chargerData.length; i++) {
     var charger = this.chargerData[i];
@@ -23,7 +23,7 @@ getDom: function() {
     var operatingMode = "";
     switch (charger.OperatingMode) {
       case 1:
-        operatingMode = "ledigt       ";
+        operatingMode = "ledigt       "<p>;
         break;
       case 3:
         operatingMode = "laddar       ";
@@ -35,7 +35,7 @@ getDom: function() {
         operatingMode = charger.OperatingMode;
         break;
     }
-    chargerWrapper.innerHTML = "<div class='charger'><div class='title'>Charger " + (i+1) + "</div><div class='value'>" + operatingMode + "</div></div>";
+    chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
     wrapper.appendChild(chargerWrapper);
   }
   return wrapper;
