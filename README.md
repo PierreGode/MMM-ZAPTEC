@@ -1,4 +1,6 @@
-# MMM-ZAPTEC is a Magic Mirror module for connecting to the ZAPTEC API.
+# MMM-ZAPTEC 
+
+this is a Magic Mirror module for connecting to the ZAPTEC API.
 
 
 
