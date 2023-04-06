@@ -35,7 +35,7 @@ getDom: function() {
         operatingMode = charger.OperatingMode;
         break;
     }
-    chargerWrapper.innerHTML = "Charger " + (i+1) + " - OperatingMode: " + operatingMode;
+    chargerWrapper.innerHTML = "Charger " + (i+1);
     wrapper.appendChild(chargerWrapper);
   }
   return wrapper;
