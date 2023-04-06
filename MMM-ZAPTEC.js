@@ -25,10 +25,10 @@ Module.register("MMM-ZAPTEC", {
       var operatingMode = "";
       switch (charger.OperatingMode) {
         case 1:
-          operatingMode = "ledigt       ";
+          operatingMode = "ledigt-------";
           break;
         case 3:
-          operatingMode = "laddar       ";
+          operatingMode = "laddar-------";
           break;
         case 5:
           operatingMode = "slutade ladda";
@@ -37,7 +37,7 @@ Module.register("MMM-ZAPTEC", {
           operatingMode = charger.OperatingMode;
           break;
       }
-      chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode + "    ";
+      chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
       wrapper.appendChild(chargerWrapper);
     }
     return wrapper;
