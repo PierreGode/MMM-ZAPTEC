@@ -1,30 +1,46 @@
-const NodeHelper = require('node_helper');
-const request = require('request');
+const NodeHelper = require("node_helper");
+const axios = require("axios");
 
 module.exports = NodeHelper.create({
-
-  start: function () {
-    console.log('Starting node_helper for module: ' + this.name);
+  start: function() {
+    console.log(`Starting helper: ${this.name}`);
   },
 
-  socketNotificationReceived: function (notification, payload) {
-    if (notification === 'GET_DATA') {
-      const self = this;
+  socketNotificationReceived: function(notification, payload) {
+    console.log("Received socket notification:", notification, "with payload:", payload);
+
+    if (notification === "GET_CHARGER_DATA") {
+      this.config = payload;
+      console.log("Retrieving charger data");
+
       const options = {
-        url: `https://${payload.server}/api/live`,
+        method: "GET",
+        url: "https://api.zaptec.com/api/chargers/",
         headers: {
-          Authorization: `Bearer ${payload.token}`,
-          'User-Agent': 'MMM-ZAPTEC'
+          "Authorization": `Bearer ${this.config.bearerToken}`
         }
       };
-      request(options, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          const data = JSON.parse(body);
-          self.sendSocketNotification('DATA_RECEIVED', data);
-        } else {
-          console.log('Error fetching data: ', error);
-        }
-      });
+
+      this.makeRequest(options);
     }
+  },
+
+  makeRequest: function(options) {
+    const self = this;
+    axios(options)
+      .then(function(response) {
+        if (response.status === 200) {
+          const chargerData = response.data;
+          console.log("Got charger data:", chargerData);
+          self.sendSocketNotification("CHARGER_DATA_RESULT", { chargerData: chargerData });
+        } else {
+          console.error(`Error getting charger data: ${response.statusText}`);
+          self.sendSocketNotification("CHARGER_DATA_RESULT", { error: response.statusText });
+        }
+      })
+      .catch(function(error) {
+        console.error(`Error getting charger data: ${error}`);
+        self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
+      });
   }
 });
