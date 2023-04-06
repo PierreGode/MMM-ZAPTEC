@@ -14,9 +14,16 @@ Module.register("MMM-ZAPTEC", {
   },
 
   // Override dom generator.
+// Override dom generator.
   getDom: function() {
     var wrapper = document.createElement("div");
     wrapper.className = "small";
+
+    // Add header
+    var header = document.createElement("div");
+    header.innerHTML = "<h2>ZAPTEC Charger</h2>";
+    wrapper.appendChild(header);
+
     for (var i = 0; i < this.chargerData.length; i++) {
       var charger = this.chargerData[i];
       var chargerWrapper = document.createElement("div");
