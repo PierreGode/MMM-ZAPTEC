@@ -21,7 +21,7 @@ Module.register("MMM-ZAPTEC", {
 
     // Add header
     var header = document.createElement("div");
-    header.innerHTML = "<h2>ZAPTEC Charger</h2>";
+    header.innerHTML = "<h4>Zaptec Charger</h4>";
     wrapper.appendChild(header);
 
     for (var i = 0; i < this.chargerData.length; i++) {
