@@ -23,7 +23,7 @@ getDom: function() {
     var operatingMode = "";
     switch (charger.OperatingMode) {
       case 1:
-        operatingMode = "ledigt       "<p>;
+        operatingMode = "ledigt       ";
         break;
       case 3:
         operatingMode = "laddar       ";
