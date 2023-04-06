@@ -15,7 +15,7 @@ Module.register("MMM-ZAPTEC", {
 
 getDom: function() {
   var wrapper = document.createElement("div");
-  wrapper.className = "small";
+  wrapper.className = "small MMM-ZAPTEC";
 
   for (var i = 0; i < this.chargerData.length; i++) {
     var charger = this.chargerData[i];
@@ -35,11 +35,12 @@ getDom: function() {
         operatingMode = charger.OperatingMode;
         break;
     }
-    chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
+    chargerWrapper.innerHTML = "<div class='charger'><div class='title'>Charger " + (i+1) + "</div><div class='value'>" + operatingMode + "</div></div>";
     wrapper.appendChild(chargerWrapper);
   }
   return wrapper;
 },
+
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
