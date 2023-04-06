@@ -3,37 +3,28 @@ const request = require('request');
 
 module.exports = NodeHelper.create({
 
-  start: function() {
-    console.log('MMM-ZAPTEC helper started...');
+  start: function () {
+    console.log('Starting node_helper for module: ' + this.name);
   },
 
-  getZaptecData: function(url, token) {
-    const self = this;
-    const options = {
-      url: url,
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    };
-    request(options, function(err, res, body) {
-      if (err) {
-        console.log(err);
-        self.sendSocketNotification('ZAPTEC_DATA_ERROR');
-      } else {
-        const data = JSON.parse(body);
-        const operatingModes = data.Data.map(function(item) {
-          return item.OperatingMode;
-        });
-        self.sendSocketNotification('ZAPTEC_DATA_RECEIVED', operatingModes);
-      }
-    });
-  },
-
-  socketNotificationReceived: function(notification, payload) {
-    const self = this;
-    if (notification === 'GET_ZAPTEC_DATA') {
-      self.getZaptecData(payload.url, payload.token);
+  socketNotificationReceived: function (notification, payload) {
+    if (notification === 'GET_DATA') {
+      const self = this;
+      const options = {
+        url: `https://${payload.server}/api/live`,
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+          'User-Agent': 'MMM-ZAPTEC'
+        }
+      };
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          const data = JSON.parse(body);
+          self.sendSocketNotification('DATA_RECEIVED', data);
+        } else {
+          console.log('Error fetching data: ', error);
+        }
+      });
     }
   }
-
 });
