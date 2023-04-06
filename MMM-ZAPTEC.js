@@ -13,34 +13,35 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
-getDom: function() {
-  var wrapper = document.createElement("div");
-  wrapper.className = "small";
+  // Override dom generator.
+  getDom: function() {
+    var wrapper = document.createElement("div");
+    wrapper.className = "small";
 
-  for (var i = 0; i < this.chargerData.length; i++) {
-    var charger = this.chargerData[i];
-    var chargerWrapper = document.createElement("div");
-    var operatingMode = "";
-    switch (charger.OperatingMode) {
-      case 1:
-        operatingMode = "ledigt       ";
-        break;
-      case 3:
-        operatingMode = "laddar       ";
-        break;
-      case 5:
-        operatingMode = "slutade ladda";
-        break;
-      default:
-        operatingMode = charger.OperatingMode;
-        break;
+    for (var i = 0; i < this.chargerData.length; i++) {
+      var charger = this.chargerData[i];
+      var chargerWrapper = document.createElement("div");
+      chargerWrapper.className = "chargerWrapper";
+      var operatingMode = "";
+      switch (charger.OperatingMode) {
+        case 1:
+          operatingMode = "ledigt       ";
+          break;
+        case 3:
+          operatingMode = "laddar       ";
+          break;
+        case 5:
+          operatingMode = "slutade ladda";
+          break;
+        default:
+          operatingMode = charger.OperatingMode;
+          break;
+      }
+      chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
+      wrapper.appendChild(chargerWrapper);
     }
-    chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
-    wrapper.appendChild(chargerWrapper);
-  }
-  return wrapper;
-},
-
+    return wrapper;
+  },
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
