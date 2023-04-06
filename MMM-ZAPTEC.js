@@ -1,7 +1,7 @@
 Module.register("MMM-ZAPTEC", {
   // Default module config.
   defaults: {
-    bearerToken: "",
+    apiKey: "",
     updateInterval: 60000 // update every minute
   },
 
@@ -14,7 +14,6 @@ Module.register("MMM-ZAPTEC", {
   },
 
   // Override dom generator.
-// Override dom generator.
   getDom: function() {
     var wrapper = document.createElement("div");
     wrapper.className = "small";
@@ -37,11 +36,11 @@ Module.register("MMM-ZAPTEC", {
   getData: function() {
     Log.info("Fetching data for module: " + this.name);
     var self = this;
-    var url = "https://api.zaptec.com/api/chargers/";
-    var token = this.config.bearerToken;
+    var url = "http://localhost:8080/getChargerData";
+    var apiKey = this.config.apiKey;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
-    xhr.setRequestHeader("Authorization", "Bearer " + token);
+    xhr.setRequestHeader("Authorization", apiKey);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         var data = JSON.parse(xhr.responseText);
