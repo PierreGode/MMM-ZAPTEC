@@ -15,9 +15,10 @@ module.exports = NodeHelper.create({
 
       const options = {
         method: "GET",
-        url: "https://api.zaptec.com/api/chargers/",
+        url: "https://api.zaptec.com/api/chargers",
         headers: {
-          "Authorization": `Bearer ${this.config.bearerToken}`
+          "X-API-KEY": payload.apiKey,
+          "accept": "text/plain"
         }
       };
 
