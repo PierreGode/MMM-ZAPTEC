@@ -18,11 +18,6 @@ Module.register("MMM-ZAPTEC", {
     var wrapper = document.createElement("div");
     wrapper.className = "small";
 
-    // Add header
-    var header = document.createElement("div");
-    header.innerHTML = "<h4>Zaptec Charger</h4>";
-    wrapper.appendChild(header);
-
     for (var i = 0; i < this.chargerData.length; i++) {
       var charger = this.chargerData[i];
       var chargerWrapper = document.createElement("div");
