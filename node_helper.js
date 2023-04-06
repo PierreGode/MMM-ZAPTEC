@@ -31,7 +31,7 @@ module.exports = NodeHelper.create({
     axios(options)
       .then(function(response) {
         if (response.status === 200) {
-          const chargerData = response.data;
+          const chargerData = response.data.Data;
           console.log("Got charger data:", chargerData);
           self.sendSocketNotification("CHARGER_DATA_RESULT", { chargerData: chargerData });
         } else {
