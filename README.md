@@ -1,6 +1,7 @@
 # MMM-ZAPTEC 
 
-this is a Magic Mirror module for connecting to the ZAPTEC API.
+This is a Magic Mirror module for connecting to the ZAPTEC API
+and showing information on your Mirror.
 
 
 
@@ -10,6 +11,7 @@ this is a Magic Mirror module for connecting to the ZAPTEC API.
 
 THIS JUST STARTED AND IS MISSING 80% OF FUNCTIONS
 
+irritation 1: show zaptec chargers and the status of them.
 
 
 how to install:
