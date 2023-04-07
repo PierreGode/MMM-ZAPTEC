@@ -11,15 +11,15 @@ and showing information on your Mirror.
 
 THIS JUST STARTED AND IS MISSING 80% OF FUNCTIONS
 
-irritation 1: show zaptec chargers and the status of them.
+Irritation 1: show zaptec chargers and the status of them.
 
 
-how to install:
+How to install:
 ```
 cd MagicMirror/modules
 git clone https://github.com/PierreGode/MMM-ZAPTEC.git
 ```
-in MagicMirror/config/config.js
+In MagicMirror/config/config.js
 
 
 
