@@ -17,6 +17,7 @@ Irritation 1: show zaptec chargers and the status of them.
 How to install:
 ```
 cd MagicMirror/modules
+```
 git clone https://github.com/PierreGode/MMM-ZAPTEC.git
 ```
 In MagicMirror/config/config.js
