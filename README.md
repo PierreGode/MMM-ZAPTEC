@@ -13,6 +13,11 @@ THIS JUST STARTED AND IS MISSING 80% OF FUNCTIONS
 
 Irritation 1: show zaptec chargers and the status of them.
 
+To get your api token go [here](https://api.zaptec.com/help/index.html)
+the authorize
+and go to /api/chargers and > try it out > execute 
+you will get an curl line with an Bearer: copy that token.
+
 
 How to install:
 ```
