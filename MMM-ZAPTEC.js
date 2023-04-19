@@ -3,7 +3,6 @@ Module.register("MMM-ZAPTEC", {
   defaults: {
     bearerToken: "",
     updateInterval: 60000 // update every minute
-    enableColors: true // enable colors
   },
 
   // Define start sequence.
@@ -14,9 +13,10 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
+// Override dom generator.
 getDom: function() {
   var wrapper = document.createElement("div");
-  wrapper.className = "small align-left";
+  wrapper.className = "small align-left"; // add align-left class here
 
   for (var i = 0; i < this.chargerData.length; i++) {
     var charger = this.chargerData[i];
@@ -25,30 +25,26 @@ getDom: function() {
     var operatingMode = "";
     switch (charger.OperatingMode) {
       case 1:
-        operatingMode = "ledigt";
+        operatingMode = "Ledigt";
         break;
       case 2:
-        operatingMode = "auktoriserar";
+        operatingMode = "Auktoriserar";
         break;
       case 3:
-        operatingMode = "laddar";
+        operatingMode = "Laddar";
         break;
       case 5:
-        operatingMode = "slutade-ladda";
+        operatingMode = "Slutade ladda";
         break;
       default:
-        operatingMode = "unknown";
+        operatingMode = charger.OperatingMode;
         break;
     }
-    if (this.config.enableColors) { // check if colors are enabled
-      chargerWrapper.classList.add(operatingMode); // add class only if colors are enabled
-    }
-    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode; // use "Charger" and 5 spaces here
     wrapper.appendChild(chargerWrapper);
   }
   return wrapper;
 },
-
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
