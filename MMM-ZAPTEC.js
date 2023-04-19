@@ -25,13 +25,13 @@ getDom: function() {
     var operatingMode = "";
     switch (charger.OperatingMode) {
       case 1:
-        operatingMode = "ledigt-----------";
+        operatingMode = "ledigt";
         break;
       case 2:
-        operatingMode = "Auktoriserar-------";
+        operatingMode = "Auktoriserar";
         break;
       case 3:
-        operatingMode = "laddar-----------";
+        operatingMode = "laddar";
         break;
       case 5:
         operatingMode = "slutade ladda";
