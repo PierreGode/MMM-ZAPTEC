@@ -8,7 +8,7 @@ and showing information on your Mirror.
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J2EARPK)
 
 
-Irritation 1: show zaptec chargers and the status of them.
+Irritation 1: Show zaptec chargers and the status of them.
 
 ![image](https://user-images.githubusercontent.com/8579922/233061217-f4e2b742-a79c-4456-a32e-820b2bd806ef.png)
 
