@@ -10,7 +10,7 @@ and showing information on your Mirror.
 
 Irritation 1: Show zaptec chargers and the status of them.
 
-![image](https://user-images.githubusercontent.com/8579922/233061217-f4e2b742-a79c-4456-a32e-820b2bd806ef.png)
+![image](https://user-images.githubusercontent.com/8579922/233061820-5e3606fb-693b-4d10-bdaf-df3b4048f9a5.png)
 
 
 To get your api token go [here](https://api.zaptec.com/help/index.html)
