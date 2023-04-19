@@ -2,7 +2,8 @@ Module.register("MMM-ZAPTEC", {
   // Default module config.
   defaults: {
     bearerToken: "",
-    updateInterval: 60000 // update every minute
+    updateInterval: 60000, // update every minute
+    lang: "swe" // default language is Swedish
   },
 
   // Define start sequence.
@@ -13,38 +14,42 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
-// Override dom generator.
-getDom: function() {
-  var wrapper = document.createElement("div");
-  wrapper.className = "small align-left"; // add align-left class here
+  // Override dom generator.
+  getDom: function() {
+    var wrapper = document.createElement("div");
+    wrapper.className = "small align-left"; // add align-left class here
 
-  for (var i = 0; i < this.chargerData.length; i++) {
-    var charger = this.chargerData[i];
-    var chargerWrapper = document.createElement("div");
-    chargerWrapper.className = "chargerWrapper";
-    var operatingMode = "";
-    switch (charger.OperatingMode) {
-      case 1:
-        operatingMode = "Ledigt";
-        break;
-      case 2:
-        operatingMode = "Auktoriserar";
-        break;
-      case 3:
-        operatingMode = "Laddar";
-        break;
-      case 5:
-        operatingMode = "Slutade ladda";
-        break;
-      default:
-        operatingMode = charger.OperatingMode;
-        break;
+    for (var i = 0; i < this.chargerData.length; i++) {
+      var charger = this.chargerData[i];
+      var chargerWrapper = document.createElement("div");
+      chargerWrapper.className = "chargerWrapper";
+
+      // Retrieve the appropriate translation based on the language setting
+      var lang = this.config.lang;
+      var operatingMode = "";
+      switch (charger.OperatingMode) {
+        case 1:
+          operatingMode = lang === "eng" ? "Available" : "Ledigt";
+          break;
+        case 2:
+          operatingMode = lang === "eng" ? "Authorizing" : "Auktoriserar";
+          break;
+        case 3:
+          operatingMode = lang === "eng" ? "Charging" : "Laddar";
+          break;
+        case 5:
+          operatingMode = lang === "eng" ? "Finished charging" : "Slutade ladda";
+          break;
+        default:
+          operatingMode = charger.OperatingMode;
+          break;
+      }
+
+      chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+      wrapper.appendChild(chargerWrapper);
     }
-    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode; // use "Charger" and 5 spaces here
-    wrapper.appendChild(chargerWrapper);
-  }
-  return wrapper;
-},
+    return wrapper;
+  },
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
