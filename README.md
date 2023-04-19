@@ -38,6 +38,6 @@ In MagicMirror/config/config.js
   config: {
     bearerToken: "API TOKEN",
     updateInterval: 60000, // update every minute
-    lang: "eng" // set language to English
+    lang: "eng" // set language to eng for English and swe for Swedish
   }
 },
