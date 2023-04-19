@@ -3,6 +3,7 @@ Module.register("MMM-ZAPTEC", {
   defaults: {
     bearerToken: "",
     updateInterval: 60000 // update every minute
+    enableColors: true // enable colors
   },
 
   // Define start sequence.
