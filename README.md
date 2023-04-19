@@ -37,6 +37,7 @@ In MagicMirror/config/config.js
   header: "Zaptec Laddare",
   config: {
     bearerToken: "API TOKEN",
-    updateInterval: 60000 // update every minute
+    updateInterval: 60000, // update every minute
+    lang: "eng" // set language to English
   }
 },
