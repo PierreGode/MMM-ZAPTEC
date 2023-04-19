@@ -5,50 +5,46 @@ Module.register("MMM-ZAPTEC", {
     updateInterval: 60000 // update every minute
   },
 
+  // Define start sequence.
   start: function() {
     Log.info("Starting module: " + this.name);
     this.chargerData = [];
     this.sendSocketNotification("GET_CHARGER_DATA", this.config);
     this.scheduleUpdate();
-
-    var self = this;
-    setInterval(function() {
-      self.updateDom(); // no speed defined, so it updates instantly.
-    }, 1000); // perform every 1000 milliseconds.
   },
 
-  // Override dom generator.
-  getDom: function() {
-    var wrapper = document.createElement("div");
-    wrapper.className = "small align-left";
+// Override dom generator.
+getDom: function() {
+  var wrapper = document.createElement("div");
+  wrapper.className = "small align-left"; // add align-left class here
 
-    for (var i = 0; i < this.chargerData.length; i++) {
-      var charger = this.chargerData[i];
-      var chargerWrapper = document.createElement("div");
-      chargerWrapper.className = "chargerWrapper";
-      var operatingMode = "";
-      switch (charger.OperatingMode) {
-        case 1:
-          operatingMode = "ledigt";
-          break;
-        case 2:
-          operatingMode = "Auktoriserar";
-          break;
-        case 3:
-          operatingMode = "laddar";
-          break;
-        case 5:
-          operatingMode = "slutade ladda";
-          break;
-        default:
-          operatingMode = charger.OperatingMode;
-          break;
-      }
-      chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
-      wrapper.appendChild(chargerWrapper);
+  for (var i = 0; i < this.chargerData.length; i++) {
+    var charger = this.chargerData[i];
+    var chargerWrapper = document.createElement("div");
+    chargerWrapper.className = "chargerWrapper";
+    var operatingMode = "";
+    switch (charger.OperatingMode) {
+      case 1:
+        operatingMode = "ledigt";
+        break;
+      case 2:
+        operatingMode = "Auktoriserar";
+        break;
+      case 3:
+        operatingMode = "laddar";
+        break;
+      case 5:
+        operatingMode = "slutade ladda";
+        break;
+      default:
+        operatingMode = charger.OperatingMode;
+        break;
     }
-    return wrapper;
-  },
+    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode; // use "Charger" and 5 spaces here
+    wrapper.appendChild(chargerWrapper);
+  }
+  return wrapper;
+},
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
