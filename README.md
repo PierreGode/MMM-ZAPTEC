@@ -34,7 +34,7 @@ In MagicMirror/config/config.js
 {
   module: "MMM-ZAPTEC",
   position: "bottom_right",
-  header: "Zaptec Charger",
+  header: "Zaptec Laddare",
   config: {
     bearerToken: "API TOKEN",
     updateInterval: 60000 // update every minute
