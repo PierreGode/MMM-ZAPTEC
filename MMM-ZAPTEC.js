@@ -13,10 +13,9 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
-// Override dom generator.
 getDom: function() {
   var wrapper = document.createElement("div");
-  wrapper.className = "small align-left"; // add align-left class here
+  wrapper.className = "small align-left";
 
   for (var i = 0; i < this.chargerData.length; i++) {
     var charger = this.chargerData[i];
@@ -28,23 +27,27 @@ getDom: function() {
         operatingMode = "ledigt";
         break;
       case 2:
-        operatingMode = "Auktoriserar";
+        operatingMode = "auktoriserar";
         break;
       case 3:
         operatingMode = "laddar";
         break;
       case 5:
-        operatingMode = "slutade ladda";
+        operatingMode = "slutade-ladda";
         break;
       default:
-        operatingMode = charger.OperatingMode;
+        operatingMode = "unknown";
         break;
     }
-    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode; // use "Charger" and 5 spaces here
+    if (this.config.enableColors) { // check if colors are enabled
+      chargerWrapper.classList.add(operatingMode); // add class only if colors are enabled
+    }
+    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
     wrapper.appendChild(chargerWrapper);
   }
   return wrapper;
 },
+
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
