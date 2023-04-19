@@ -67,7 +67,7 @@ getDom: function() {
       }
       Log.info("Received charger data");
       this.chargerData = payload.chargerData;
-      this.updateDom();
+      this.updateDom(1000);
     }
   }
 });
