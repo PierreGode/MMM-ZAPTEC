@@ -5,12 +5,26 @@ Module.register("MMM-ZAPTEC", {
     updateInterval: 60000 // update every minute
   },
 
+  
+  
+  start: function() {
+	var self = this;
+	setInterval(function() {
+		self.updateDom(); // no speed defined, so it updates instantly.
+	}, 1000); //perform every 1000 milliseconds.
+},
   // Define start sequence.
   start: function() {
     Log.info("Starting module: " + this.name);
     this.chargerData = [];
     this.sendSocketNotification("GET_CHARGER_DATA", this.config);
     this.scheduleUpdate();
+      // test.
+    	var self = this;
+	setInterval(function() {
+		self.updateDom(); // no speed defined, so it updates instantly.
+	}, 1000); //perform every 1000 milliseconds.
+    // test.
   },
 
 // Override dom generator.
