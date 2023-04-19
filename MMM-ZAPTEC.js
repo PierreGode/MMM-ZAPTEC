@@ -27,6 +27,9 @@ Module.register("MMM-ZAPTEC", {
         case 1:
           operatingMode = "ledigt-----------";
           break;
+        case 2:
+          operatingMode = "Auktoriserar-------";
+          break;
         case 3:
           operatingMode = "laddar-----------";
           break;
