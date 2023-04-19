@@ -13,38 +13,38 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
-  // Override dom generator.
-  getDom: function() {
-    var wrapper = document.createElement("div");
-    wrapper.className = "small";
+// Override dom generator.
+getDom: function() {
+  var wrapper = document.createElement("div");
+  wrapper.className = "small align-left"; // add align-left class here
 
-    for (var i = 0; i < this.chargerData.length; i++) {
-      var charger = this.chargerData[i];
-      var chargerWrapper = document.createElement("div");
-      chargerWrapper.className = "chargerWrapper";
-      var operatingMode = "";
-      switch (charger.OperatingMode) {
-        case 1:
-          operatingMode = "ledigt-----------";
-          break;
-        case 2:
-          operatingMode = "Auktoriserar-------";
-          break;
-        case 3:
-          operatingMode = "laddar-----------";
-          break;
-        case 5:
-          operatingMode = "slutade ladda";
-          break;
-        default:
-          operatingMode = charger.OperatingMode;
-          break;
-      }
-      chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
-      wrapper.appendChild(chargerWrapper);
+  for (var i = 0; i < this.chargerData.length; i++) {
+    var charger = this.chargerData[i];
+    var chargerWrapper = document.createElement("div");
+    chargerWrapper.className = "chargerWrapper";
+    var operatingMode = "";
+    switch (charger.OperatingMode) {
+      case 1:
+        operatingMode = "ledigt-----------";
+        break;
+      case 2:
+        operatingMode = "Auktoriserar-------";
+        break;
+      case 3:
+        operatingMode = "laddar-----------";
+        break;
+      case 5:
+        operatingMode = "slutade ladda";
+        break;
+      default:
+        operatingMode = charger.OperatingMode;
+        break;
     }
-    return wrapper;
-  },
+    chargerWrapper.innerHTML = "Charger " + (i+1) + " " + operatingMode;
+    wrapper.appendChild(chargerWrapper);
+  }
+  return wrapper;
+},
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
