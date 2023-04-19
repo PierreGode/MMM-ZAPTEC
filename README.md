@@ -16,7 +16,7 @@ Irritation 1: Show zaptec chargers and the status of them.
 To get your api token go [here](https://api.zaptec.com/help/index.html)
 then authorize
 and go to /api/chargers and > try it out > execute 
-you will get an curl line with an Bearer: copy that token.
+you will get an curl line with a Bearer: copy that token.
 
 
 How to install:
