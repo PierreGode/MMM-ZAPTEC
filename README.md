@@ -41,3 +41,6 @@ In MagicMirror/config/config.js
     lang: "eng" // set language to eng for English and swe for Swedish
   }
 },
+
+Api free: yes
+development status: WIP 
