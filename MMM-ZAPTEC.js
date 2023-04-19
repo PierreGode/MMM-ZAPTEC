@@ -40,7 +40,7 @@ getDom: function() {
         operatingMode = charger.OperatingMode;
         break;
     }
-    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode; // use "Charger" and 5 spaces here
+    chargerWrapper.innerHTML = "Laddare " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode; // use "Charger" and 5 spaces here
     wrapper.appendChild(chargerWrapper);
   }
   return wrapper;
