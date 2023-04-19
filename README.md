@@ -34,9 +34,9 @@ In MagicMirror/config/config.js
 {
   module: "MMM-ZAPTEC",
   position: "bottom_right",
-  header: "Zaptec Laddare",
+  header: "Zaptec Laddare", // Change the header for your custom name of the module.
   config: {
-    bearerToken: "API TOKEN",
+    bearerToken: "API TOKEN", // Add api -token here.
     updateInterval: 60000, // update every minute
     lang: "eng" // set language to eng for English and swe for Swedish
   }
