@@ -4,6 +4,18 @@ const axios = require("axios");
 module.exports = NodeHelper.create({
   start: function() {
     console.log(`Starting helper: ${this.name}`);
+    setInterval(() => {
+      console.log("Retrieving charger data");
+      const options = {
+        method: "GET",
+        url: "https://api.zaptec.com/api/chargers",
+        headers: {
+          "Authorization": "Bearer " + this.config.bearerToken,
+          "accept": "text/plain"
+        }
+      };
+      this.makeRequest(options);
+    }, 60000); // Refresh every minute
   },
 
   socketNotificationReceived: function(notification, payload) {
@@ -12,7 +24,6 @@ module.exports = NodeHelper.create({
     if (notification === "GET_CHARGER_DATA") {
       this.config = payload;
       console.log("Retrieving charger data");
-
       const options = {
         method: "GET",
         url: "https://api.zaptec.com/api/chargers",
@@ -21,7 +32,6 @@ module.exports = NodeHelper.create({
           "accept": "text/plain"
         }
       };
-
       this.makeRequest(options);
     }
   },
