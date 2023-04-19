@@ -44,6 +44,5 @@ In MagicMirror/config/config.js
 
 ```
 Api free: yes
-```
-```
+<p>
 development status: WIP 
