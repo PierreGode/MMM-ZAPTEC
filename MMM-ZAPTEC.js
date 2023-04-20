@@ -22,71 +22,72 @@ Module.register("MMM-ZAPTEC", {
 
   // Override dom generator.
 getDom: function() {
-    var wrapper = document.createElement("div");
-    wrapper.className = "small align-left";
+  var wrapper = document.createElement("div");
+  wrapper.className = "small align-left";
 
-    var chargerIndex = this.config.Charger === "all" ? null : parseInt(this.config.Charger) - 1;
+  var chargerIndex = this.config.Charger === "all" ? null : parseInt(this.config.Charger) - 1;
 
-    for (var i = 0; i < this.chargerData.length; i++) {
-      if (chargerIndex !== null && chargerIndex !== i) {
-        continue;
-      }
+  for (var i = 0; i < this.chargerData.length; i++) {
+    if (chargerIndex !== null && chargerIndex !== i) {
+      continue;
+    }
 
-      var charger = this.chargerData[i];
-      var chargerWrapper = document.createElement("div");
-      chargerWrapper.className = "chargerWrapper";
+    var charger = this.chargerData[i];
+    var chargerWrapper = document.createElement("div");
+    chargerWrapper.className = "chargerWrapper";
 
-      var lang = this.config.lang;
-      var operatingMode = "";
-      switch (charger.OperatingMode) {
-        case 1:
-          operatingMode = lang === "eng" ? "Available" : "Ledigt";
-          break;
-        case 2:
-          operatingMode = lang === "eng" ? "Authorizing" : "Auktoriserar";
-          break;
-        case 3:
-          operatingMode = lang === "eng" ? "Charging" : "Laddar";
-          break;
-        case 5:
-          operatingMode = lang === "eng" ? "Finished charging" : "Slutade ladda";
-          break;
-        default:
-          operatingMode = charger.OperatingMode;
-          break;
-      }
-
-      chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
-      wrapper.appendChild(chargerWrapper);
-
-      if (chargerIndex !== null) {
+    var lang = this.config.lang;
+    var operatingMode = "";
+    switch (charger.OperatingMode) {
+      case 1:
+        operatingMode = lang === "eng" ? "Available" : "Ledigt";
         break;
-      }
+      case 2:
+        operatingMode = lang === "eng" ? "Authorizing" : "Auktoriserar";
+        break;
+      case 3:
+        operatingMode = lang === "eng" ? "Charging" : "Laddar";
+        break;
+      case 5:
+        operatingMode = lang === "eng" ? "Finished charging" : "Slutade ladda";
+        break;
+      default:
+        operatingMode = charger.OperatingMode;
+        break;
     }
 
-    if (this.config.enableChargeHistory) {
-      var historyWrapper = document.createElement("div");
-      historyWrapper.className = "historyWrapper";
+    chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+    wrapper.appendChild(chargerWrapper);
 
-      var historyTable = document.createElement("table");
-      historyTable.className = "small";
-      var headerRow = document.createElement("tr");
-      headerRow.innerHTML = "<th>Energy (kWh)</th>";
-      historyTable.appendChild(headerRow);
+    if (chargerIndex !== null) {
+      break;
+    }
+  }
 
-      for (var i = 0; i < this.chargeHistory.length; i++) {
-        var history = this.chargeHistory[i];
-        var historyRow = document.createElement("tr");
-        historyRow.innerHTML = "<td>" + history.Energy + "</td>";
-        historyTable.appendChild(historyRow);
-      }
+  if (this.config.enableChargeHistory) {
+    var historyWrapper = document.createElement("div");
+    historyWrapper.className = "historyWrapper";
 
-      historyWrapper.appendChild(historyTable);
-      wrapper.appendChild(historyWrapper);
+    var historyTable = document.createElement("table");
+    historyTable.className = "small";
+    var headerRow = document.createElement("tr");
+    headerRow.innerHTML = "<th>Energy (kWh)</th>";
+    historyTable.appendChild(headerRow);
+
+    for (var i = 0; i < this.chargeHistory.length; i++) {
+      var history = this.chargeHistory[i];
+      var historyRow = document.createElement("tr");
+      historyRow.innerHTML = "<td>" + history.Energy + "</td>";
+      historyTable.appendChild(historyRow);
     }
 
-    return wrapper;
-  },
+    historyWrapper.appendChild(historyTable);
+    wrapper.appendChild(historyWrapper);
+  }
+
+  return wrapper;
+},
+
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
