@@ -118,4 +118,4 @@ Module.register("MMM-ZAPTEC", {
       // TODO: handle charge history data
     }
   }
-}); 
+});
