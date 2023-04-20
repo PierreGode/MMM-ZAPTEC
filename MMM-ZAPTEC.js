@@ -16,6 +16,7 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
+
   // Override dom generator.
   getDom: function() {
     var wrapper = document.createElement("div");
@@ -60,15 +61,9 @@ Module.register("MMM-ZAPTEC", {
       }
     }
 
-    if (this.config.enableChargeHistory) {
-      var historyWrapper = document.createElement("div");
-      historyWrapper.className = "historyWrapper";
-      historyWrapper.innerHTML = "Charge history goes here";
-      wrapper.appendChild(historyWrapper);
-    }
-
     return wrapper;
   },
+
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
@@ -92,13 +87,6 @@ Module.register("MMM-ZAPTEC", {
       Log.info("Received charger data");
       this.chargerData = payload.chargerData;
       this.updateDom(1000);
-    } else if (notification === "CHARGE_HISTORY_RESULT") {
-      if (payload.error) {
-        Log.error(`Error getting charge history: ${payload.error}`);
-        return;
-      }
-      Log.info("Received charge history");
-      // TODO: handle charge history data
     }
   }
 });
