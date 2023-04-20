@@ -74,29 +74,35 @@ getDom: function() {
     headerRow.innerHTML = "<th>Date</th><th>Duration</th><th>Energy (kWh)</th>";
     historyTable.appendChild(headerRow);
 
-    var apiData = this.apiData;
-    var totalPages = apiData.Pages;
-    var currentPage = apiData.CurrentPage;
-    var data = apiData.Data;
-
-    for (var i = 0; i < data.length; i++) {
-      var history = data[i];
+    for (var i = 0; i < this.chargeHistory.length; i++) {
+      var history = this.chargeHistory[i];
       var historyRow = document.createElement("tr");
-      historyRow.innerHTML = "<td>" + history.StartDateTime + "</td><td>" + history.Duration + "</td><td>" + history.Energy + "</td>";
+      historyRow.innerHTML = "<td>" + history.Date + "</td><td>" + history.Duration + "</td><td>" + history.Energy + "</td>";
       historyTable.appendChild(historyRow);
     }
 
     historyWrapper.appendChild(historyTable);
     wrapper.appendChild(historyWrapper);
-
-    // Display page navigation if there are multiple pages
-    if (totalPages > 1) {
-      var pageNav = document.createElement("div");
-      pageNav.className = "pageNav";
-      pageNav.innerHTML = "Page " + currentPage + " of " + totalPages;
-      wrapper.appendChild(pageNav);
-    }
   }
+  
+  var apiWrapper = document.createElement("div");
+  apiWrapper.className = "apiWrapper";
+
+  var apiTable = document.createElement("table");
+  apiTable.className = "small";
+  var apiHeaderRow = document.createElement("tr");
+  apiHeaderRow.innerHTML = "<th>Start Time</th><th>End Time</th><th>Duration</th><th>Energy (kWh)</th>";
+  apiTable.appendChild(apiHeaderRow);
+  
+  for (var i = 0; i < this.apiData.Data.length; i++) {
+    var apiDataRow = this.apiData.Data[i];
+    var apiRow = document.createElement("tr");
+    apiRow.innerHTML = "<td>" + apiDataRow.StartDateTime + "</td><td>" + apiDataRow.EndDateTime + "</td><td>" + apiDataRow.Duration + "</td><td>" + apiDataRow.Energy + "</td>";
+    apiTable.appendChild(apiRow);
+  }
+
+  apiWrapper.appendChild(apiTable);
+  wrapper.appendChild(apiWrapper);
 
   return wrapper;
 },
