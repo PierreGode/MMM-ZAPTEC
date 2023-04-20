@@ -15,7 +15,7 @@ module.exports = NodeHelper.create({
         }
       };
       this.makeRequest(options);
-    }, this.config.updateInterval);
+    }, 60000); // Refresh every minute
   },
 
   socketNotificationReceived: function(notification, payload) {
@@ -33,18 +33,6 @@ module.exports = NodeHelper.create({
         }
       };
       this.makeRequest(options);
-    } else if (notification === "GET_CHARGE_HISTORY") {
-      this.config = payload;
-      console.log("Retrieving charge history");
-      const options = {
-        method: "GET",
-        url: "https://api.zaptec.com/api/chargehistory",
-        headers: {
-          "Authorization": "Bearer " + payload.bearerToken,
-          "accept": "text/plain"
-        }
-      };
-      this.getChargeHistory(options);
     }
   },
 
@@ -53,7 +41,7 @@ module.exports = NodeHelper.create({
     axios(options)
       .then(function(response) {
         if (response.status === 200) {
-          const chargerData = response.data;
+          const chargerData = response.data.Data;
           console.log("Got charger data:", chargerData);
           self.sendSocketNotification("CHARGER_DATA_RESULT", { chargerData: chargerData });
         } else {
@@ -64,25 +52,6 @@ module.exports = NodeHelper.create({
       .catch(function(error) {
         console.error(`Error getting charger data: ${error}`);
         self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
-      });
-  },
-
-  getChargeHistory: function(options) {
-    const self = this;
-    axios(options)
-      .then(function(response) {
-        if (response.status === 200) {
-          const chargeHistory = response.data;
-          console.log("Got charge history:", chargeHistory);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { chargeHistory: chargeHistory });
-        } else {
-          console.error(`Error getting charge history: ${response.statusText}`);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
-        }
-      })
-      .catch(function(error) {
-        console.error(`Error getting charge history: ${error}`);
-        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
       });
   }
 });
