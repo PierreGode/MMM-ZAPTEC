@@ -15,13 +15,14 @@ module.exports = NodeHelper.create({
         }
       };
       this.makeRequest(options);
-    }, this.config.updateInterval);
+    }, 60000); // Refresh every minute
   },
 
   socketNotificationReceived: function(notification, payload) {
     console.log("Received socket notification:", notification, "with payload:", payload);
 
     if (notification === "GET_CHARGER_DATA") {
+      this.config = payload;
       console.log("Retrieving charger data");
       const options = {
         method: "GET",
@@ -31,54 +32,18 @@ module.exports = NodeHelper.create({
           "accept": "text/plain"
         }
       };
-      this.makeRequest(options, payload);
+      this.makeRequest(options);
     }
   },
 
-  makeRequest: function(options, payload) {
+  makeRequest: function(options) {
     const self = this;
     axios(options)
       .then(function(response) {
         if (response.status === 200) {
           const chargerData = response.data.Data;
           console.log("Got charger data:", chargerData);
-
-          // Get the last energy data
-          var lastEnergyData = "";
-          if (payload.enableChargeHistory && payload.Charger !== "all") {
-            const options = {
-              method: "GET",
-              url: "https://api.zaptec.com/api/chargehistory",
-              headers: {
-                "Authorization": "Bearer " + payload.bearerToken,
-                "accept": "text/plain"
-              },
-              params: {
-                charger: payload.Charger,
-                limit: 1
-              }
-            };
-            axios(options)
-              .then(function(response) {
-                if (response.status === 200) {
-                  const energyData = response.data.Data[0].EnergyData;
-                  if (energyData && energyData.length > 0) {
-                    lastEnergyData = energyData[energyData.length - 1];
-                  }
-                } else {
-                  console.error(`Error getting charge history: ${response.statusText}`);
-                }
-                // Send the charger data and the last energy data to the module
-                self.sendSocketNotification("CHARGER_DATA_RESULT", { chargerData: chargerData, lastEnergyData: lastEnergyData });
-              })
-              .catch(function(error) {
-                console.error(`Error getting charge history: ${error}`);
-                self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
-              });
-          } else {
-            // Send the charger data to the module
-            self.sendSocketNotification("CHARGER_DATA_RESULT", { chargerData: chargerData });
-          }
+          self.sendSocketNotification("CHARGER_DATA_RESULT", { chargerData: chargerData });
         } else {
           console.error(`Error getting charger data: ${response.statusText}`);
           self.sendSocketNotification("CHARGER_DATA_RESULT", { error: response.statusText });
