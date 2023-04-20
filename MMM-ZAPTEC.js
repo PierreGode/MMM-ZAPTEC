@@ -5,6 +5,8 @@ Module.register("MMM-ZAPTEC", {
     updateInterval: 60000,
     lang: "swe",
     enableChargeHistory: false,
+    fromDate: "",
+    toDate: "",
     Charger: "all"
   },
 
@@ -12,9 +14,11 @@ Module.register("MMM-ZAPTEC", {
   start: function() {
     Log.info("Starting module: " + this.name);
     this.chargerData = [];
+    this.chargeHistory = [];
     this.sendSocketNotification("GET_CHARGER_DATA", this.config);
     this.scheduleUpdate();
   },
+
 
   // Override dom generator.
   getDom: function() {
@@ -63,12 +67,27 @@ Module.register("MMM-ZAPTEC", {
     if (this.config.enableChargeHistory) {
       var historyWrapper = document.createElement("div");
       historyWrapper.className = "historyWrapper";
-      historyWrapper.innerHTML = "Charge history goes here";
+
+      var historyTable = document.createElement("table");
+      historyTable.className = "small";
+      var headerRow = document.createElement("tr");
+      headerRow.innerHTML = "<th>Date</th><th>Charger</th><th>Start time</th><th>End time</th><th>Duration</th><th>Energy (kWh)</th>";
+      historyTable.appendChild(headerRow);
+
+      for (var i = 0; i < this.chargeHistory.length; i++) {
+        var history = this.chargeHistory[i];
+        var historyRow = document.createElement("tr");
+        historyRow.innerHTML = "<td>" + history.Date + "</td><td>" + history.Charger + "</td><td>" + history.StartTime + "</td><td>" + history.EndTime + "</td><td>" + history.Duration + "</td><td>" + history.Energy + "</td>";
+        historyTable.appendChild(historyRow);
+      }
+
+      historyWrapper.appendChild(historyTable);
       wrapper.appendChild(historyWrapper);
     }
 
     return wrapper;
   },
+
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
