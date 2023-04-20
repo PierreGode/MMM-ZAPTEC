@@ -2,10 +2,8 @@ Module.register("MMM-ZAPTEC", {
   // Default module config.
   defaults: {
     bearerToken: "",
-    updateInterval: 60000,
-    lang: "swe",
-    enableChargeHistory: false,
-    Charger: "all"
+    updateInterval: 60000, // update every minute
+    lang: "swe" // default language is Swedish
   },
 
   // Define start sequence.
@@ -17,58 +15,51 @@ Module.register("MMM-ZAPTEC", {
   },
 
   // Override dom generator.
-  getDom: function() {
-    var wrapper = document.createElement("div");
-    wrapper.className = "small align-left";
+getDom: function() {
+  var wrapper = document.createElement("div");
+  wrapper.className = "small align-left"; // add align-left class here
 
-    var chargerIndex = this.config.Charger === "all" ? null : parseInt(this.config.Charger) - 1;
+  var chargerIndex = this.config.Charger === "all" ? null : parseInt(this.config.Charger) - 1;
 
-    for (var i = 0; i < this.chargerData.length; i++) {
-      if (chargerIndex !== null && chargerIndex !== i) {
-        continue;
-      }
+  for (var i = 0; i < this.chargerData.length; i++) {
+    if (chargerIndex !== null && chargerIndex !== i) {
+      continue;
+    }
 
-      var charger = this.chargerData[i];
-      var chargerWrapper = document.createElement("div");
-      chargerWrapper.className = "chargerWrapper";
+    var charger = this.chargerData[i];
+    var chargerWrapper = document.createElement("div");
+    chargerWrapper.className = "chargerWrapper";
 
-      var lang = this.config.lang;
-      var operatingMode = "";
-      switch (charger.OperatingMode) {
-        case 1:
-          operatingMode = lang === "eng" ? "Available" : "Ledigt";
-          break;
-        case 2:
-          operatingMode = lang === "eng" ? "Authorizing" : "Auktoriserar";
-          break;
-        case 3:
-          operatingMode = lang === "eng" ? "Charging" : "Laddar";
-          break;
-        case 5:
-          operatingMode = lang === "eng" ? "Finished charging" : "Slutade ladda";
-          break;
-        default:
-          operatingMode = charger.OperatingMode;
-          break;
-      }
-
-      chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
-      wrapper.appendChild(chargerWrapper);
-
-      if (chargerIndex !== null) {
+    // Retrieve the appropriate translation based on the language setting
+    var lang = this.config.lang;
+    var operatingMode = "";
+    switch (charger.OperatingMode) {
+      case 1:
+        operatingMode = lang === "eng" ? "Available" : "Ledigt";
         break;
-      }
+      case 2:
+        operatingMode = lang === "eng" ? "Authorizing" : "Auktoriserar";
+        break;
+      case 3:
+        operatingMode = lang === "eng" ? "Charging" : "Laddar";
+        break;
+      case 5:
+        operatingMode = lang === "eng" ? "Finished charging" : "Slutade ladda";
+        break;
+      default:
+        operatingMode = charger.OperatingMode;
+        break;
     }
 
-    if (this.config.enableChargeHistory) {
-      var historyWrapper = document.createElement("div");
-      historyWrapper.className = "historyWrapper";
-      historyWrapper.innerHTML = "Charge history goes here";
-      wrapper.appendChild(historyWrapper);
-    }
+    chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+    wrapper.appendChild(chargerWrapper);
 
-    return wrapper;
-  },
+    if (chargerIndex !== null) {
+      break;
+    }
+  }
+  return wrapper;
+},
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
@@ -81,8 +72,7 @@ Module.register("MMM-ZAPTEC", {
       self.sendSocketNotification("GET_CHARGER_DATA", self.config);
     }, nextLoad);
   },
-
-  // Handle notifications from node_helper.
+  // Handle notifications from node_helper
   socketNotificationReceived: function(notification, payload) {
     if (notification === "CHARGER_DATA_RESULT") {
       if (payload.error) {
@@ -92,13 +82,6 @@ Module.register("MMM-ZAPTEC", {
       Log.info("Received charger data");
       this.chargerData = payload.chargerData;
       this.updateDom(1000);
-    } else if (notification === "CHARGE_HISTORY_RESULT") {
-      if (payload.error) {
-        Log.error(`Error getting charge history: ${payload.error}`);
-        return;
-      }
-      Log.info("Received charge history");
-      // TODO: handle charge history data
     }
   }
 });
