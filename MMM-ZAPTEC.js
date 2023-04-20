@@ -54,24 +54,29 @@ Module.register("MMM-ZAPTEC", {
 
       chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
 
-      // Get the last energy data
-      var lastEnergyData = "";
-      if (charger.EnergyData && charger.EnergyData.length > 0) {
-        lastEnergyData = charger.EnergyData[charger.EnergyData.length - 1];
-      }
-
-      // Display the last energy data
-      var energyWrapper = document.createElement("div");
-      energyWrapper.className = "energyWrapper";
-      energyWrapper.innerHTML = "Last energy data: " + lastEnergyData;
-      chargerWrapper.appendChild(energyWrapper);
-
       wrapper.appendChild(chargerWrapper);
 
       if (chargerIndex !== null) {
         break;
       }
     }
+
+    // Get the last energy data for each charger
+    var lastEnergyData = "";
+    if (this.config.enableChargeHistory && this.chargerData && this.chargerData.length > 0) {
+      for (var i = 0; i < this.chargerData.length; i++) {
+        var charger = this.chargerData[i];
+        if (charger.EnergyData && charger.EnergyData.length > 0) {
+          lastEnergyData += "Charger " + (i+1) + ": " + charger.EnergyData[charger.EnergyData.length - 1] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+      }
+    }
+
+    // Display the last energy data at the bottom
+    var energyWrapper = document.createElement("div");
+    energyWrapper.className = "energyWrapper";
+    energyWrapper.innerHTML = "Last energy data: " + lastEnergyData;
+    wrapper.appendChild(energyWrapper);
 
     return wrapper;
   },
