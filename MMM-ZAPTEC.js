@@ -21,7 +21,7 @@ Module.register("MMM-ZAPTEC", {
 
 
   // Override dom generator.
-  getDom: function() {
+getDom: function() {
     var wrapper = document.createElement("div");
     wrapper.className = "small align-left";
 
@@ -71,13 +71,13 @@ Module.register("MMM-ZAPTEC", {
       var historyTable = document.createElement("table");
       historyTable.className = "small";
       var headerRow = document.createElement("tr");
-      headerRow.innerHTML = "<th>Date</th><th>Charger</th><th>Start time</th><th>End time</th><th>Duration</th><th>Energy (kWh)</th>";
+      headerRow.innerHTML = "<th>Energy (kWh)</th>";
       historyTable.appendChild(headerRow);
 
       for (var i = 0; i < this.chargeHistory.length; i++) {
         var history = this.chargeHistory[i];
         var historyRow = document.createElement("tr");
-        historyRow.innerHTML = "<td>" + history.Date + "</td><td>" + history.Charger + "</td><td>" + history.StartTime + "</td><td>" + history.EndTime + "</td><td>" + history.Duration + "</td><td>" + history.Energy + "</td>";
+        historyRow.innerHTML = "<td>" + history.Energy + "</td>";
         historyTable.appendChild(historyRow);
       }
 
@@ -87,6 +87,7 @@ Module.register("MMM-ZAPTEC", {
 
     return wrapper;
   },
+
   // Schedule module update.
   scheduleUpdate: function(delay) {
     var self = this;
