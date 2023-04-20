@@ -19,20 +19,14 @@ getDom: function() {
   var wrapper = document.createElement("div");
   wrapper.className = "small align-left"; // add align-left class here
 
-  var chargersToShow = [];
-  if (this.config.Charger === "all") {
-    chargersToShow = this.chargerData;
-  } else if (this.config.Charger === "none") {
-    chargersToShow = [];
-  } else {
-    var chargerIndex = parseInt(this.config.Charger) - 1;
-    if (this.chargerData[chargerIndex]) {
-      chargersToShow.push(this.chargerData[chargerIndex]);
-    }
-  }
+  var chargerIndex = this.config.Charger === "all" ? null : parseInt(this.config.Charger) - 1;
 
-  for (var i = 0; i < chargersToShow.length; i++) {
-    var charger = chargersToShow[i];
+  for (var i = 0; i < this.chargerData.length; i++) {
+    if (chargerIndex !== null && chargerIndex !== i) {
+      continue;
+    }
+
+    var charger = this.chargerData[i];
     var chargerWrapper = document.createElement("div");
     chargerWrapper.className = "chargerWrapper";
 
@@ -59,8 +53,11 @@ getDom: function() {
 
     chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
     wrapper.appendChild(chargerWrapper);
-  }
 
+    if (chargerIndex !== null) {
+      break;
+    }
+  }
   return wrapper;
 },
 
