@@ -16,7 +16,6 @@ Module.register("MMM-ZAPTEC", {
     this.scheduleUpdate();
   },
 
-
   // Override dom generator.
   getDom: function() {
     var wrapper = document.createElement("div");
@@ -54,6 +53,19 @@ Module.register("MMM-ZAPTEC", {
       }
 
       chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+
+      // Get the last energy data
+      var lastEnergyData = "";
+      if (charger.EnergyData && charger.EnergyData.length > 0) {
+        lastEnergyData = charger.EnergyData[charger.EnergyData.length - 1];
+      }
+
+      // Display the last energy data
+      var energyWrapper = document.createElement("div");
+      energyWrapper.className = "energyWrapper";
+      energyWrapper.innerHTML = "Last energy data: " + lastEnergyData;
+      chargerWrapper.appendChild(energyWrapper);
+
       wrapper.appendChild(chargerWrapper);
 
       if (chargerIndex !== null) {
@@ -63,7 +75,6 @@ Module.register("MMM-ZAPTEC", {
 
     return wrapper;
   },
-
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
