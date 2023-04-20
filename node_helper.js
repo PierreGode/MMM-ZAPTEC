@@ -66,6 +66,7 @@ module.exports = NodeHelper.create({
         self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
       });
   },
+
   getChargeHistory: function(options) {
     const self = this;
     axios(options)
