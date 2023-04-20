@@ -72,23 +72,25 @@ module.exports = NodeHelper.create({
       });
   },
 
-  getChargeHistory: function(options) {
-    const self = this;
-    axios(options)
-      .then(function(response) {
-        if (response.status === 200) {
-          const chargeHistory = response.data.Data;
-          console.log("Got charge history:", chargeHistory);
-          const energyData = chargeHistory.map((history) => history.Energy);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { energyData: energyData });
-        } else {
-          console.error(`Error getting charge history: ${response.statusText}`);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
-        }
-      })
-      .catch(function(error) {
-        console.error(`Error getting charge history: ${error}`);
-        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
-      });
-  }
+getChargeHistory: function(options) {
+  const self = this;
+  axios(options)
+    .then(function(response) {
+      if (response.status === 200) {
+        const chargeHistory = response.data.Data;
+        console.log("Got charge history:", chargeHistory);
+        // Get the last session only
+        const lastSession = chargeHistory[chargeHistory.length - 1];
+        const energyData = [lastSession.Energy];
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { energyData: energyData });
+      } else {
+        console.error(`Error getting charge history: ${response.statusText}`);
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
+      }
+    })
+    .catch(function(error) {
+      console.error(`Error getting charge history: ${error}`);
+      self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
+    });
+}
 });
