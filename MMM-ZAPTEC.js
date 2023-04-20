@@ -62,7 +62,6 @@ Module.register("MMM-ZAPTEC", {
       self.sendSocketNotification("GET_CHARGER_DATA", self.config);
     }, nextLoad);
   },
-
   // Handle notifications from node_helper
   socketNotificationReceived: function(notification, payload) {
     if (notification === "CHARGER_DATA_RESULT") {
