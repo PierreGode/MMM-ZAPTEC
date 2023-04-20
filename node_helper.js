@@ -1,6 +1,3 @@
-Sure, here's an updated `node_helper` file that removes unnecessary code and includes the modifications to send the last energy data to the `MMM-ZAPTEC` module:
-
-```
 const NodeHelper = require("node_helper");
 const axios = require("axios");
 
