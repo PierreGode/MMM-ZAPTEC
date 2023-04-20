@@ -38,7 +38,8 @@ In MagicMirror/config/config.js
   config: {
     bearerToken: "API TOKEN", // Add API token here.
     updateInterval: 60000, // update every minute
-    lang: "eng" // set language to eng for English and swe for Swedish
+    lang: "eng", // set language to eng for English and swe for Swedish
+    Charger: 5, // Shows what charger to show on mirror. Options: all, none, 1,2,3,4,5,6,7,8,9
   }
 },
 
