@@ -66,22 +66,21 @@ module.exports = NodeHelper.create({
         self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
       });
   },
-  getChargeHistory: function(options) {
-    const self = this;
-    axios(options)
-      .then(function(response) {
-        if (response.status === 200) {
-          const chargeHistory = response.data.Data;
-          console.log("Got charge history:", chargeHistory);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { chargeHistory: chargeHistory });
-        } else {
-          console.error(`Error getting charge history: ${response.statusText}`);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
-        }
-      })
-      .catch(function(error) {
-        console.error(`Error getting charge history: ${error}`);
-        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
-      });
-  }
-});
+getChargeHistory: function(options) {
+  const self = this;
+  axios(options)
+    .then(function(response) {
+      if (response.status === 200) {
+        const chargeHistory = response.data.Data;
+        console.log("Got charge history:", chargeHistory);
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { chargeHistory: chargeHistory });
+      } else {
+        console.error(`Error getting charge history: ${response.statusText}`);
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
+      }
+    })
+    .catch(function(error) {
+      console.error(`Error getting charge history: ${error}`);
+      self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
+    });
+},
