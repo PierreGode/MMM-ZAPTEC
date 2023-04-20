@@ -42,6 +42,11 @@ module.exports = NodeHelper.create({
         headers: {
           "Authorization": "Bearer " + payload.bearerToken,
           "accept": "text/plain"
+        },
+        params: {
+          charger: payload.charger,
+          fromDate: payload.fromDate,
+          toDate: payload.toDate
         }
       };
       this.getChargeHistory(options);
@@ -66,6 +71,7 @@ module.exports = NodeHelper.create({
         self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
       });
   },
+
   getChargeHistory: function(options) {
     const self = this;
     axios(options)
