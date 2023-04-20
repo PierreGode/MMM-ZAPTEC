@@ -79,7 +79,8 @@ module.exports = NodeHelper.create({
         if (response.status === 200) {
           const chargeHistory = response.data.Data;
           console.log("Got charge history:", chargeHistory);
-          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { chargeHistory: chargeHistory });
+          const energyData = chargeHistory.map((history) => history.Energy);
+          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { energyData: energyData });
         } else {
           console.error(`Error getting charge history: ${response.statusText}`);
           self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
