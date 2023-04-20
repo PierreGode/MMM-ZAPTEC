@@ -15,7 +15,7 @@ module.exports = NodeHelper.create({
         }
       };
       this.makeRequest(options);
-    }, 60000); // Refresh every minute
+    }, this.config.updateInterval);
   },
 
   socketNotificationReceived: function(notification, payload) {
@@ -33,6 +33,18 @@ module.exports = NodeHelper.create({
         }
       };
       this.makeRequest(options);
+    } else if (notification === "GET_CHARGE_HISTORY") {
+      this.config = payload;
+      console.log("Retrieving charge history");
+      const options = {
+        method: "GET",
+        url: "https://api.zaptec.com/api/chargehistory",
+        headers: {
+          "Authorization": "Bearer " + payload.bearerToken,
+          "accept": "text/plain"
+        }
+      };
+      this.getChargeHistory(options);
     }
   },
 
@@ -52,6 +64,24 @@ module.exports = NodeHelper.create({
       .catch(function(error) {
         console.error(`Error getting charger data: ${error}`);
         self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
+      });
+  },
+  getChargeHistory: function(options) {
+    const self = this;
+    axios(options)
+      .then(function(response) {
+        if (response.status === 200) {
+          const chargeHistory = response.data.Data;
+          console.log("Got charge history:", chargeHistory);
+          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { chargeHistory: chargeHistory });
+        } else {
+          console.error(`Error getting charge history: ${response.statusText}`);
+          self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
+        }
+      })
+      .catch(function(error) {
+        console.error(`Error getting charge history: ${error}`);
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
       });
   }
 });
