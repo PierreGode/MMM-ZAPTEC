@@ -102,3 +102,4 @@ Module.register("MMM-ZAPTEC", {
     }
   }
 });
+
