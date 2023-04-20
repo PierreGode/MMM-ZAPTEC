@@ -40,7 +40,7 @@ In MagicMirror/config/config.js
     updateInterval: 60000, // update every minute
     lang: "eng", // set language to eng for English and swe for Swedish
     Charger: "all", // Shows what charger to show on mirror. Options: all, none, 1,2,3,4,5,6,7,8,9
-    enableChargeHistory: false
+    enableChargeHistory: false //Not working yet
   }
 },
 
