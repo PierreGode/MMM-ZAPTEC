@@ -34,12 +34,13 @@ In MagicMirror/config/config.js
 {
   module: "MMM-ZAPTEC",
   position: "bottom_right",
-  header: "Zaptec Laddare", // Change the header for your custom name of the module.
+  header: "Zaptec Laddare",
   config: {
-    bearerToken: "API TOKEN", // Add API token here.
-    updateInterval: 60000, // update every minute
-    lang: "eng", // set language to eng for English and swe for Swedish
-    Charger: "all", // Shows what charger to show on mirror. Options: all, none, 1,2,3,4,5,6,7,8,9
+    username: "YOUR_USERNAME",
+    password: "YOUR_PASSWORD",
+    updateInterval: 60000,
+    lang: "eng",
+    Charger: "all"
   }
 },
 
