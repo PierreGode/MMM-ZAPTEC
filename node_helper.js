@@ -4,35 +4,97 @@ const axios = require("axios");
 module.exports = NodeHelper.create({
   start: function() {
     console.log(`Starting helper: ${this.name}`);
-    setInterval(() => {
-      console.log("Retrieving charger data");
-      const options = {
-        method: "GET",
-        url: "https://api.zaptec.com/api/chargers",
-        headers: {
-          "Authorization": "Bearer " + this.config.bearerToken,
-          "accept": "text/plain"
-        }
-      };
-      this.makeRequest(options);
-    }, 60000); // Refresh every minute
+  },
+
+  setConfig: function(config) {
+    this.config = config;
+    this.username = config.username;
+    this.password = config.password;
+  },
+
+scheduleDataRefresh: function() {
+  const scheduleIfTokenSet = () => {
+    if (this.bearerToken) {
+      console.log("Scheduling data refresh");
+      setInterval(() => {
+        console.log("Retrieving charger data");
+        const options = {
+          method: "GET",
+          url: "https://api.zaptec.com/api/chargers",
+          headers: {
+            "Authorization": `Bearer ${this.bearerToken}`,
+            "accept": "text/plain"
+          }
+        };
+        this.makeRequest(options);
+      }, 300000); // Set the interval to 5 minutes (300000 milliseconds)
+    } else {
+      console.error("Error: Bearer token not set. Please authenticate with Zaptec API first.");
+      setTimeout(scheduleIfTokenSet, 1000); // Check again after 1 second
+    }
+  };
+
+  scheduleIfTokenSet();
+},
+
+  refreshBearerToken: function() {
+    console.log("Refreshing bearer token");
+    const self = this;
+
+    const encodedCredentials = Buffer.from(`${this.config.username}:${this.config.password}`).toString('base64');
+    console.log(`Encoded credentials: ${encodedCredentials}`);
+
+    const options = {
+      method: "POST",
+      url: "https://api.zaptec.com/oauth/token",
+      headers: {
+        "accept": "application/json",
+        "content-type": "application/x-www-form-urlencoded",
+        "Authorization": `Basic ${encodedCredentials}`
+      },
+      data: `grant_type=password&username=${encodeURIComponent(this.config.username)}&password=${encodeURIComponent(this.config.password)}`
+    };
+axios(options)
+    .then(function(response) {
+      if (response.status === 200) {
+        self.bearerToken = response.data.access_token;
+        console.log("Got bearer token:", self.bearerToken);
+        self.scheduleDataRefresh(); // Schedule data refresh after getting the token
+      } else {
+        console.error(`Error getting bearer token: ${response.statusText}`);
+      }
+    })
+      .catch(function(error) {
+        console.error(`Error getting bearer token: ${error}`);
+      })
+      .finally(function() {
+        setTimeout(() => {
+          self.refreshBearerToken();
+        }, 86400000); // Refresh every 24 hours
+      });
   },
 
   socketNotificationReceived: function(notification, payload) {
     console.log("Received socket notification:", notification, "with payload:", payload);
 
-    if (notification === "GET_CHARGER_DATA") {
-      this.config = payload;
-      console.log("Retrieving charger data");
-      const options = {
-        method: "GET",
-        url: "https://api.zaptec.com/api/chargers",
-        headers: {
-          "Authorization": "Bearer " + payload.bearerToken,
-          "accept": "text/plain"
-        }
-      };
-      this.makeRequest(options);
+    if (notification === "SET_CONFIG") {
+      this.setConfig(payload);
+      this.refreshBearerToken();
+      this.scheduleDataRefresh();
+    } else if (notification === "GET_CHARGER_DATA") {
+      if (this.bearerToken) {
+        const options = {
+          method: "GET",
+          url: "https://api.zaptec.com/api/chargers",
+          headers: {
+            "Authorization": `Bearer ${this.bearerToken}`,
+            "accept": "text/plain"
+          }
+        };
+        this.makeRequest(options);
+      } else {
+        console.error("Error: Bearer token not set. Please authenticate with Zaptec API first.");
+      }
     }
   },
 
@@ -53,5 +115,5 @@ module.exports = NodeHelper.create({
         console.error(`Error getting charger data: ${error}`);
         self.sendSocketNotification("CHARGER_DATA_RESULT", { error: error.message });
       });
-  }
+  },
 });
