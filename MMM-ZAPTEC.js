@@ -53,7 +53,10 @@ Module.register("MMM-ZAPTEC", {
           break;
       }
 
-      chargerWrapper.innerHTML = "Charger " + (i+1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+      // Translate the word "Charger" to Swedish if the language is set to "swe"
+      var chargerText = lang === "swe" ? "Laddare" : "Charger";
+
+      chargerWrapper.innerHTML = chargerText + " " + (i + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
       wrapper.appendChild(chargerWrapper);
 
       if (chargerIndex !== null) {
