@@ -13,7 +13,7 @@ Module.register("MMM-ZAPTEC", {
     Log.info("Starting module: " + this.name);
     this.chargerData = [];
     this.sendSocketNotification("GET_CHARGER_DATA", this.config);
-    this.scheduleUpdate();
+    this.scheduleUpdate(0);
   },
 
   // Override dom generator.
