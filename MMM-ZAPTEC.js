@@ -1,12 +1,13 @@
 Module.register("MMM-ZAPTEC", {
   // Default module config.
-defaults: {
-  username: "",
-  password: "",
-  updateInterval: 60000, // update every minute
-  lang: "swe", // default language is Swedish
-  enableChargeHistory: false // by default, charge history is not displayed
-},
+  defaults: {
+    username: "",
+    password: "",
+    updateInterval: 60000, // update every minute
+    lang: "swe", // default language is Swedish
+    enableChargeHistory: false, // by default, charge history is not displayed
+    showHistoryEntries: 5 // define the max amount of charge history entries to show
+  },
 
   // Define start sequence.
   start: function() {
@@ -55,7 +56,6 @@ getDom: function() {
       break;
     }
   }
-
   // Display charge history data
   if (this.config.enableChargeHistory && this.chargeHistoryData.length > 0) {
     var chargeHistoryWrapper = document.createElement("div");
@@ -73,7 +73,8 @@ getDom: function() {
     var chargeHistoryList = document.createElement("ul");
 
     // Loop through the charge history data in reverse order
-    for (var i = this.chargeHistoryData.length - 1; i >= 0; i--) {
+    var historyEntries = 0;
+    for (var i = this.chargeHistoryData.length - 1; i >= 0 && historyEntries < this.config.showHistoryEntries; i--) {
       var charge = this.chargeHistoryData[i];
       var listItem = document.createElement("li");
 
@@ -105,6 +106,7 @@ getDom: function() {
       listItem.innerHTML = `${formattedStartDate} - ${formattedEndDate}: ${charge.Energy} kWh`;
 
       chargeHistoryList.appendChild(listItem);
+      historyEntries++;
     }
 
     chargeHistoryWrapper.appendChild(chargeHistoryList);
