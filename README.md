@@ -44,6 +44,8 @@ In MagicMirror/config/config.js
   }
 },
 
+yes sorry for username and password but the token only had a ttl of 24H
+
 ```
 Restart magic mirror.
 After starting the module can take up to 60 sec to pull the first data.
