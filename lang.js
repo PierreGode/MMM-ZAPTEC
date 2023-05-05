@@ -11,7 +11,8 @@
     "authorizing": "Auktoriserar",
     "charging": "Laddar",
     "finishedCharging": "Slutade ladda",
-    "charger": "Laddare"
+    "charger": "Laddare",
+    "chargeHistory": "Laddningshistorik"
   },
   "dan": {
     "available": "Tilgængelig",
