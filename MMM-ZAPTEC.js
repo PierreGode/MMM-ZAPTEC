@@ -1,17 +1,19 @@
 Module.register("MMM-ZAPTEC", {
   // Default module config.
-  defaults: {
-    username: "",
-    password: "",
-    updateInterval: 60000, // update every minute
-    lang: "swe" // default language is Swedish
-  },
+defaults: {
+  username: "",
+  password: "",
+  updateInterval: 60000, // update every minute
+  lang: "swe", // default language is Swedish
+  enableChargeHistory: false // by default, charge history is not displayed
+},
 
   // Define start sequence.
   start: function() {
     this.sendSocketNotification("SET_CONFIG", this.config);
     Log.info("Starting module: " + this.name);
     this.chargerData = [];
+    this.chargeHistoryData = [];
     this.sendSocketNotification("GET_CHARGER_DATA", this.config);
     this.scheduleUpdate();
     this.translations = {}; 
@@ -19,10 +21,12 @@ Module.register("MMM-ZAPTEC", {
   },
 
   // Override dom generator.
-  getDom: function() {
+getDom: function() {
   var wrapper = document.createElement("div");
   wrapper.className = "small align-left";
   var chargerIndex = this.config.charger === "all" ? null : parseInt(this.config.charger) - 1;
+
+  // Display charger data
   for (var i = 0; i < this.chargerData.length; i++) {
     if (chargerIndex !== null && chargerIndex !== i) {
       continue;
@@ -32,7 +36,6 @@ Module.register("MMM-ZAPTEC", {
     var chargerWrapper = document.createElement("div");
     chargerWrapper.className = "chargerWrapper";
 
-    // Retrieve the appropriate translation based on the language setting
     var lang = this.config.lang;
     var translationKeys = {
       1: "available",
@@ -43,7 +46,6 @@ Module.register("MMM-ZAPTEC", {
     var operatingModeKey = translationKeys[charger.OperatingMode] || charger.OperatingMode;
     var operatingMode = this.translations[lang][operatingModeKey];
 
-    // Translate the word "Charger" to the selected language
     var chargerText = this.translations[lang].charger;
 
     chargerWrapper.innerHTML = chargerText + " " + (i + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
@@ -53,33 +55,102 @@ Module.register("MMM-ZAPTEC", {
       break;
     }
   }
+
+  // Display charge history data
+  if (this.config.enableChargeHistory && this.chargeHistoryData.length > 0) {
+    var chargeHistoryWrapper = document.createElement("div");
+    chargeHistoryWrapper.className = "chargeHistoryWrapper";
+
+    var chargeHistoryHeader = document.createElement("h4");
+if (this.translations[lang] && this.translations[lang].chargeHistory) {
+  chargeHistoryHeader.innerHTML = this.translations[lang].chargeHistory;
+} else {
+  chargeHistoryHeader.innerHTML = "Charge History";
+}
+
+    chargeHistoryWrapper.appendChild(chargeHistoryHeader);
+
+    var chargeHistoryList = document.createElement("ul");
+
+    this.chargeHistoryData.forEach(function(charge) {
+      var listItem = document.createElement("li");
+
+      // Convert StartDateTime to a JavaScript Date object
+      var startDate = new Date(charge.StartDateTime);
+
+      // Convert EndDateTime to a JavaScript Date object
+      var endDate = new Date(charge.EndDateTime);
+
+      // Format the start date and time using 24-hour format
+      var formattedStartDate = new Intl.DateTimeFormat(undefined, {
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).format(startDate);
+
+      // Format the end date and time using 24-hour format
+      var formattedEndDate = new Intl.DateTimeFormat(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).format(endDate);
+
+      // Display the formatted start and end date and time, and the energy consumed
+      listItem.innerHTML = `${formattedStartDate} - ${formattedEndDate}: ${charge.Energy} kWh`;
+
+      chargeHistoryList.appendChild(listItem);
+    });
+
+    chargeHistoryWrapper.appendChild(chargeHistoryList);
+    wrapper.appendChild(chargeHistoryWrapper);
+  }
+
   return wrapper;
 },
 
+
+
   // Schedule module update.
-  scheduleUpdate: function(delay) {
-    var self = this;
-    var nextLoad = this.config.updateInterval;
-    if (typeof delay !== "undefined" && delay >= 0) {
-      nextLoad = delay;
-    }
+scheduleUpdate: function(delay) {
+  var self = this;
+  var nextLoad = this.config.updateInterval;
+  if (typeof delay !== "undefined" && delay >= 0) {
+    nextLoad = delay;
+  }
+  setTimeout(function() {
+    self.sendSocketNotification("GET_CHARGER_DATA", self.config);
+  }, nextLoad);
+
+  // Request charge history data if enableChargeHistory is set to true
+  if (this.config.enableChargeHistory) {
     setTimeout(function() {
-      self.sendSocketNotification("GET_CHARGER_DATA", self.config);
+      self.sendSocketNotification("GET_CHARGE_HISTORY");
     }, nextLoad);
-  },
+  }
+},
 
   // Handle notifications from node_helper
-  socketNotificationReceived: function(notification, payload) {
-    if (notification === "CHARGER_DATA_RESULT") {
-      if (payload.error) {
-        Log.error(`Error getting charger data: ${payload.error}`);
-        return;
-      }
-      Log.info("Received charger data");
-      this.chargerData = payload.chargerData;
-      this.updateDom(1000);
+socketNotificationReceived: function(notification, payload) {
+  if (notification === "CHARGER_DATA_RESULT") {
+    if (payload.error) {
+      Log.error(`Error getting charger data: ${payload.error}`);
+      return;
     }
-  },
+    Log.info("Received charger data");
+    this.chargerData = payload.chargerData;
+    this.updateDom(1000);
+  } else if (notification === "CHARGE_HISTORY_RESULT") {
+    if (payload.error) {
+      Log.error(`Error getting charge history data: ${payload.error}`);
+      return;
+    }
+    Log.info("Received charge history data");
+    this.chargeHistoryData = payload.chargeHistoryData;
+    this.updateDom(1000);
+  }
+},
 
   // Get translations
   getTranslations: function() {
