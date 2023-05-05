@@ -34,13 +34,15 @@ In MagicMirror/config/config.js
 {
   module: "MMM-ZAPTEC",
   position: "bottom_right",
-  header: "Zaptec Laddare",
+  header: "Zaptec",
   config: {
     username: "YOUR_USERNAME",
     password: "YOUR_PASSWORD",
-    updateInterval: 60000,
-    lang: "eng",
-    Charger: "all"
+    updateInterval: 30000,
+    lang: "swe",
+    enableChargeHistory: true,
+    charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-8) to display data for only that charger
+    showHistoryEntries: 5 // define the max amount of charge history entries to show
   }
 },
 
