@@ -51,6 +51,8 @@ In MagicMirror/config/config.js
 },
 
 ```
+After start the module can take up to 60 sec to pull the first data.
+
 ```
 languages supported.
 
