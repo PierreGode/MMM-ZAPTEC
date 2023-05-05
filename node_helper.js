@@ -26,6 +26,12 @@ scheduleDataRefresh: function() {
           }
         };
         this.makeRequest(options);
+
+        // If enableChargeHistory is true, send the GET_CHARGE_HISTORY notification
+        if (this.config.enableChargeHistory) {
+          this.sendSocketNotification("GET_CHARGE_HISTORY");
+        }
+
       }, 300000); // Set the interval to 5 minutes (300000 milliseconds)
     } else {
       console.error("Error: Bearer token not set. Please authenticate with Zaptec API first.");
@@ -35,6 +41,7 @@ scheduleDataRefresh: function() {
 
   scheduleIfTokenSet();
 },
+
 
   refreshBearerToken: function() {
     console.log("Refreshing bearer token");
@@ -73,29 +80,35 @@ axios(options)
       });
   },
 
-  socketNotificationReceived: function(notification, payload) {
-    console.log("Received socket notification:", notification, "with payload:", payload);
+socketNotificationReceived: function(notification, payload) {
+  console.log("Received socket notification:", notification, "with payload:", payload);
 
-    if (notification === "SET_CONFIG") {
-      this.setConfig(payload);
-      this.refreshBearerToken();
-      this.scheduleDataRefresh();
-    } else if (notification === "GET_CHARGER_DATA") {
-      if (this.bearerToken) {
-        const options = {
-          method: "GET",
-          url: "https://api.zaptec.com/api/chargers",
-          headers: {
-            "Authorization": `Bearer ${this.bearerToken}`,
-            "accept": "text/plain"
-          }
-        };
-        this.makeRequest(options);
-      } else {
-        console.error("Error: Bearer token not set. Please authenticate with Zaptec API first.");
-      }
+  if (notification === "SET_CONFIG") {
+    this.setConfig(payload);
+    this.refreshBearerToken();
+    this.scheduleDataRefresh();
+  } else if (notification === "GET_CHARGER_DATA") {
+    if (this.bearerToken) {
+      const options = {
+        method: "GET",
+        url: "https://api.zaptec.com/api/chargers",
+        headers: {
+          "Authorization": `Bearer ${this.bearerToken}`,
+          "accept": "text/plain"
+        }
+      };
+      this.makeRequest(options);
+    } else {
+      console.error("Error: Bearer token not set. Please authenticate with Zaptec API first.");
     }
-  },
+  } else if (notification === "GET_CHARGE_HISTORY") {
+    if (this.bearerToken) {
+      this.getChargeHistory();
+    } else {
+      console.error("Error: Bearer token not set. Please authenticate with Zaptec API first.");
+    }
+  }
+},
 
 getChargeHistory: function() {
   const self = this;
