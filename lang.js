@@ -4,7 +4,8 @@
     "authorizing": "Authorizing",
     "charging": "Charging",
     "finishedCharging": "Finished charging",
-    "charger": "Charger"
+    "charger": "Charger",
+    "chargeHistory": "Charge history"
   },
   "swe": {
     "available": "Ledigt",
@@ -19,111 +20,127 @@
     "authorizing": "Autoriserer",
     "charging": "Oplader",
     "finishedCharging": "Opladning afsluttet",
-    "charger": "Oplader"
+    "charger": "Oplader",
+    "chargeHistory": "Opladningshistorik"
   },
   "nor": {
     "available": "Tilgjengelig",
     "authorizing": "Autoriserer",
     "charging": "Lader",
     "finishedCharging": "Lading fullført",
-    "charger": "Lader"
+    "charger": "Lader",
+    "chargeHistory": "Ladehistorikk"
   },
   "isl": {
     "available": "Laus",
     "authorizing": "Að heimila",
     "charging": "Hleður",
     "finishedCharging": "Hleðsla lokið",
-    "charger": "Hleðslutæki"
+    "charger": "Hleðslutæki",
+    "chargeHistory": "Hleðslusaga"
   },
   "dut": {
     "available": "Beschikbaar",
     "authorizing": "Autoriseren",
     "charging": "Opladen",
     "finishedCharging": "Opladen voltooid",
-    "charger": "Oplader"
+    "charger": "Oplader",
+    "chargeHistory": "Laadgeschiedenis"
   },
   "chi": {
     "available": "可用",
     "authorizing": "授权中",
     "charging": "充电中",
     "finishedCharging": "充电完成",
-    "charger": "充电器"
+    "charger": "充电器",
+    "chargeHistory": "充电历史"
   },
   "kor": {
     "available": "사용 가능",
     "authorizing": "인증 중",
     "charging": "충전 중",
     "finishedCharging": "충전 완료",
-    "charger": "충전기"
+    "charger": "충전기",
+    "chargeHistory": "충전 기록"
   },
   "pol": {
     "available": "Dostępny",
     "authorizing": "Autoryzacja",
     "charging": "Ładowanie",
     "finishedCharging": "Zakończono ładowanie",
-    "charger": "Ładowarka"
+    "charger": "Ładowarka",
+    "chargeHistory": "Historia ładowania"
   },
   "fin": {
     "available": "Saatavilla",
     "authorizing": "Valtuuttaminen",
     "charging": "Lataaminen",
     "finishedCharging": "Lataus valmis",
-    "charger": "Laturi"
+    "charger": "Laturi",
+    "chargeHistory": "Lataushistoria"
   },
-  "spa": {
+"spa": {
     "available": "Disponible",
     "authorizing": "Autorizando",
     "charging": "Cargando",
     "finishedCharging": "Finalizó la carga",
-    "charger": "Cargador"
+    "charger": "Cargador",
+    "chargeHistory": "Historial de carga"
   },
   "ger": {
     "available": "Verfügbar",
     "authorizing": "Autorisierung",
     "charging": "Laden",
     "finishedCharging": "Ladevorgang abgeschlossen",
-    "charger": "Ladegerät"
+    "charger": "Ladegerät",
+    "chargeHistory": "Ladehistorie"
   },
   "fre": {
     "available": "Disponible",
     "authorizing": "Autorisation",
     "charging": "En charge",
     "finishedCharging": "Charge terminée",
-    "charger": "Chargeur"
+    "charger": "Chargeur",
+    "chargeHistory": "Historique de charge"
   },
   "ita": {
     "available": "Disponibile",
     "authorizing": "Autorizzazione",
     "charging": "In carica",
     "finishedCharging": "Carica completata",
-    "charger": "Caricatore"
+    "charger": "Caricatore",
+    "chargeHistory": "Storico di carica"
   },
   "por": {
     "available": "Disponível",
     "authorizing": "Autorizando",
     "charging": "Carregando",
     "finishedCharging": "Carregamento concluído",
-    "charger": "Carregador"
+    "charger": "Carregador",
+    "chargeHistory": "Histórico de carga"
   },
   "hin": {
     "available": "उपलब्ध",
     "authorizing": "प्राधिकरण",
     "charging": "चार्ज हो रहा है",
     "finishedCharging": "चार्जिंग समाप्त",
-    "charger": "चार्जर"
+    "charger": "चार्जर",
+    "chargeHistory": "चार्ज इतिहास"
   },
   "ara": {
     "available": "متاح",
     "authorizing": "تفويض",
     "charging": "شحن",
     "finishedCharging": "انتهى الشحن",
-    "charger": "شاحن"
+    "charger": "شاحن",
+    "chargeHistory": "تاريخ الشحن"
   },
   "jpn": {
     "available": "利用可能",
     "authorizing": "承認中",
     "charging": "充電中",
     "finishedCharging": "充電完了",
-    "charger": "充電器"
+    "charger": "充電器",
+    "chargeHistory": "充電履歴"
   }
 }
