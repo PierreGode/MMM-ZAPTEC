@@ -1,6 +1,5 @@
 const NodeHelper = require("node_helper");
 const axios = require("axios");
-
 module.exports = NodeHelper.create({
   start: function() {
     console.log(`Starting helper: ${this.name}`);
@@ -98,6 +97,32 @@ axios(options)
     }
   },
 
+getChargeHistory: function() {
+  const self = this;
+  const options = {
+    method: "GET",
+    url: "https://api.zaptec.com/api/chargehistory",
+    headers: {
+      "Authorization": `Bearer ${this.bearerToken}`,
+      "accept": "text/plain"
+    }
+  };
+  axios(options)
+    .then(function(response) {
+      if (response.status === 200) {
+        const chargeHistoryData = response.data.Data;
+        console.log("Got charge history data:", chargeHistoryData);
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { chargeHistoryData: chargeHistoryData });
+      } else {
+        console.error(`Error getting charge history data: ${response.statusText}`);
+        self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: response.statusText });
+      }
+    })
+    .catch(function(error) {
+      console.error(`Error getting charge history data: ${error}`);
+      self.sendSocketNotification("CHARGE_HISTORY_RESULT", { error: error.message });
+    });
+},
   makeRequest: function(options) {
     const self = this;
     axios(options)
