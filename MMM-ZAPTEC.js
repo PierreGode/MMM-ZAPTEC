@@ -14,57 +14,47 @@ Module.register("MMM-ZAPTEC", {
     this.chargerData = [];
     this.sendSocketNotification("GET_CHARGER_DATA", this.config);
     this.scheduleUpdate();
+    this.translations = {}; 
+    this.getTranslations();
   },
 
   // Override dom generator.
   getDom: function() {
-    var wrapper = document.createElement("div");
-    wrapper.className = "small align-left"; // add align-left class here
-
-    var chargerIndex = this.config.charger === "all" ? null : parseInt(this.config.charger) - 1;
-
-    for (var i = 0; i < this.chargerData.length; i++) {
-      if (chargerIndex !== null && chargerIndex !== i) {
-        continue;
-      }
-
-      var charger = this.chargerData[i];
-      var chargerWrapper = document.createElement("div");
-      chargerWrapper.className = "chargerWrapper";
-
-      // Retrieve the appropriate translation based on the language setting
-      var lang = this.config.lang;
-      var operatingMode = "";
-      switch (charger.OperatingMode) {
-        case 1:
-          operatingMode = lang === "eng" ? "Available" : "Ledigt";
-          break;
-        case 2:
-          operatingMode = lang === "eng" ? "Authorizing" : "Auktoriserar";
-          break;
-        case 3:
-          operatingMode = lang === "eng" ? "Charging" : "Laddar";
-          break;
-        case 5:
-          operatingMode = lang === "eng" ? "Finished charging" : "Slutade ladda";
-          break;
-        default:
-          operatingMode = charger.OperatingMode;
-          break;
-      }
-
-      // Translate the word "Charger" to Swedish if the language is set to "swe"
-      var chargerText = lang === "swe" ? "Laddare" : "Charger";
-
-      chargerWrapper.innerHTML = chargerText + " " + (i + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
-      wrapper.appendChild(chargerWrapper);
-
-      if (chargerIndex !== null) {
-        break;
-      }
+  var wrapper = document.createElement("div");
+  wrapper.className = "small align-left";
+  var chargerIndex = this.config.charger === "all" ? null : parseInt(this.config.charger) - 1;
+  for (var i = 0; i < this.chargerData.length; i++) {
+    if (chargerIndex !== null && chargerIndex !== i) {
+      continue;
     }
-    return wrapper;
-  },
+
+    var charger = this.chargerData[i];
+    var chargerWrapper = document.createElement("div");
+    chargerWrapper.className = "chargerWrapper";
+
+    // Retrieve the appropriate translation based on the language setting
+    var lang = this.config.lang;
+    var translationKeys = {
+      1: "available",
+      2: "authorizing",
+      3: "charging",
+      5: "finishedCharging"
+    };
+    var operatingModeKey = translationKeys[charger.OperatingMode] || charger.OperatingMode;
+    var operatingMode = this.translations[lang][operatingModeKey];
+
+    // Translate the word "Charger" to the selected language
+    var chargerText = this.translations[lang].charger;
+
+    chargerWrapper.innerHTML = chargerText + " " + (i + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + operatingMode;
+    wrapper.appendChild(chargerWrapper);
+
+    if (chargerIndex !== null) {
+      break;
+    }
+  }
+  return wrapper;
+},
 
   // Schedule module update.
   scheduleUpdate: function(delay) {
@@ -89,5 +79,19 @@ Module.register("MMM-ZAPTEC", {
       this.chargerData = payload.chargerData;
       this.updateDom(1000);
     }
-  }
+  },
+
+  // Get translations
+  getTranslations: function() {
+    var self = this;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        self.translations = JSON.parse(this.responseText);
+      }
+    };
+    xhttp.open("GET", "/modules/MMM-ZAPTEC/lang.js", true);
+    xhttp.send();
+  },
 });
