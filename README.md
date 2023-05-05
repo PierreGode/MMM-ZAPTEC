@@ -78,4 +78,4 @@ Swedish (swe)
 ```
 Api free: yes
 <p>
-development status: WIP 
+development status: Complete 
