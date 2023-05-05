@@ -62,24 +62,28 @@ getDom: function() {
     chargeHistoryWrapper.className = "chargeHistoryWrapper";
 
     var chargeHistoryHeader = document.createElement("h4");
-if (this.translations[lang] && this.translations[lang].chargeHistory) {
-  chargeHistoryHeader.innerHTML = this.translations[lang].chargeHistory;
-} else {
-  chargeHistoryHeader.innerHTML = "Charge History";
-}
+    if (this.translations[lang] && this.translations[lang].chargeHistory) {
+      chargeHistoryHeader.innerHTML = this.translations[lang].chargeHistory;
+    } else {
+      chargeHistoryHeader.innerHTML = "Charge History";
+    }
 
     chargeHistoryWrapper.appendChild(chargeHistoryHeader);
 
     var chargeHistoryList = document.createElement("ul");
 
-    this.chargeHistoryData.forEach(function(charge) {
+    // Loop through the charge history data in reverse order
+    for (var i = this.chargeHistoryData.length - 1; i >= 0; i--) {
+      var charge = this.chargeHistoryData[i];
       var listItem = document.createElement("li");
 
-      // Convert StartDateTime to a JavaScript Date object
+      // Convert StartDateTime to a JavaScript Date object and adjust for timezone difference
       var startDate = new Date(charge.StartDateTime);
+      startDate.setHours(startDate.getHours() + 2);
 
-      // Convert EndDateTime to a JavaScript Date object
+      // Convert EndDateTime to a JavaScript Date object and adjust for timezone difference
       var endDate = new Date(charge.EndDateTime);
+      endDate.setHours(endDate.getHours() + 2);
 
       // Format the start date and time using 24-hour format
       var formattedStartDate = new Intl.DateTimeFormat(undefined, {
@@ -101,7 +105,7 @@ if (this.translations[lang] && this.translations[lang].chargeHistory) {
       listItem.innerHTML = `${formattedStartDate} - ${formattedEndDate}: ${charge.Energy} kWh`;
 
       chargeHistoryList.appendChild(listItem);
-    });
+    }
 
     chargeHistoryWrapper.appendChild(chargeHistoryList);
     wrapper.appendChild(chargeHistoryWrapper);
@@ -109,7 +113,6 @@ if (this.translations[lang] && this.translations[lang].chargeHistory) {
 
   return wrapper;
 },
-
 
 
   // Schedule module update.
