@@ -36,7 +36,7 @@ In MagicMirror/config/config.js
     password: "YOUR_PASSWORD",
     updateInterval: 30000,
     lang: "swe",
-    charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-99) to display data for only that charger
+    charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-99) to display data for only that charge, set none to hide chargers.
     enableChargeHistory: true,
     showHistoryEntries: 5 // define the max amount of charge history entries to show
   }
