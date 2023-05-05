@@ -36,11 +36,17 @@ In MagicMirror/config/config.js
     password: "YOUR_PASSWORD",
     updateInterval: 30000,
     lang: "swe",
-    charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-99) to display data for only that charge, set none to hide chargers.
     enableChargeHistory: true,
-    showHistoryEntries: 5 // define the max amount of charge history entries to show
-  }
+    charger: "all",
+    showHistoryEntries: 5 
+ }
 },
+```
+
+```
+charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-99) to display data for only that charge, set none to hide chargers.
+
+showHistoryEntries: 5 // define the max amount of charge history entries to show
 ```
 
 yes sorry for username and password but the token only had a ttl of 24H
