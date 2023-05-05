@@ -37,13 +37,35 @@ In MagicMirror/config/config.js
   header: "Zaptec Laddare",
   config: {
     username: "YOUR_USERNAME",
-    password: "YOUR_PASSWORD", 
-    updateInterval: 60000, // update every minute
-    lang: "eng", // set language to eng for English and swe for Swedish
-    Charger: "all", // Shows what charger to show on mirror. Options: all, none, 1,2,3,4,5,6,7,8,9
+    password: "YOUR_PASSWORD",
+    updateInterval: 60000,
+    lang: "eng",
+    Charger: "all"
   }
 },
 
+```
+```
+languages supported.
+
+Arabic (ara)
+Chinese (chi)
+Danish (dan)
+Dutch (dut)
+English (eng)
+Finnish (fin)
+French (fre)
+German (ger)
+Hindi (hin)
+Icelandic (isl)
+Italian (ita)
+Japanese (jpn)
+Korean (kor)
+Norwegian (nor)
+Polish (pol)
+Portuguese (por)
+Spanish (spa)
+Swedish (swe)
 ```
 Api free: yes
 <p>
