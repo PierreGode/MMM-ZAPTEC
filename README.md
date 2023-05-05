@@ -39,7 +39,7 @@ In MagicMirror/config/config.js
     updateInterval: 30000,
     lang: "swe",
     enableChargeHistory: true,
-    charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-8) to display data for only that charger
+    charger: "all", // set to "all" to display data for all chargers, or set to a specific charger number (1-99) to display data for only that charger
     showHistoryEntries: 5 // define the max amount of charge history entries to show
   }
 },
