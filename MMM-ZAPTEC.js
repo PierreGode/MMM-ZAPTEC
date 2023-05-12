@@ -4,7 +4,7 @@ Module.register("MMM-ZAPTEC", {
     username: "",
     password: "",
     updateInterval: 60000, // update every minute
-    lang: "swe", // default language is Swedish
+    lang: "eng", // default language is Swedish
     enableChargeHistory: false, // by default, charge history is not displayed
     showHistoryEntries: 5 // define the max amount of charge history entries to show
   },
