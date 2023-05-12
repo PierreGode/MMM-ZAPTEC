@@ -40,12 +40,12 @@
     "chargeHistory": "Hleðslusaga"
   },
   "de": {
-    "available": "Beschikbaar",
-    "authorizing": "Autoriseren",
-    "charging": "Opladen",
-    "finishedCharging": "Opladen voltooid",
-    "charger": "Oplader",
-    "chargeHistory": "Laadgeschiedenis"
+    "available": "Verfügbar",
+    "authorizing": "Autorisierung",
+    "charging": "Laden",
+    "finishedCharging": "Ladevorgang abgeschlossen",
+    "charger": "Ladegerät",
+    "chargeHistory": "Ladehistorie"
   },
   "zh": {
     "available": "可用",
@@ -79,68 +79,4 @@
     "charger": "Laturi",
     "chargeHistory": "Lataushistoria"
   },
-"es": {
-    "available": "Disponible",
-    "authorizing": "Autorizando",
-    "charging": "Cargando",
-    "finishedCharging": "Finalizó la carga",
-    "charger": "Cargador",
-    "chargeHistory": "Historial de carga"
-  },
-  "de": {
-    "available": "Verfügbar",
-    "authorizing": "Autorisierung",
-    "charging": "Laden",
-    "finishedCharging": "Ladevorgang abgeschlossen",
-    "charger": "Ladegerät",
-    "chargeHistory": "Ladehistorie"
-  },
-  "fr": {
-    "available": "Disponible",
-    "authorizing": "Autorisation",
-    "charging": "En charge",
-    "finishedCharging": "Charge terminée",
-    "charger": "Chargeur",
-    "chargeHistory": "Historique de charge"
-  },
-  "it": {
-    "available": "Disponibile",
-    "authorizing": "Autorizzazione",
-    "charging": "In carica",
-    "finishedCharging": "Carica completata",
-    "charger": "Caricatore",
-    "chargeHistory": "Storico di carica"
-  },
-  "pt": {
-    "available": "Disponível",
-    "authorizing": "Autorizando",
-    "charging": "Carregando",
-    "finishedCharging": "Carregamento concluído",
-    "charger": "Carregador",
-    "chargeHistory": "Histórico de carga"
-  },
-  "hi": {
-    "available": "उपलब्ध",
-    "authorizing": "प्राधिकरण",
-    "charging": "चार्ज हो रहा है",
-    "finishedCharging": "चार्जिंग समाप्त",
-    "charger": "चार्जर",
-    "chargeHistory": "चार्ज इतिहास"
-  },
-  "ar": {
-    "available": "متاح",
-    "authorizing": "تفويض",
-    "charging": "شحن",
-    "finishedCharging": "انتهى الشحن",
-    "charger": "شاحن",
-    "chargeHistory": "تاريخ الشحن"
-  },
-  "ja": {
-    "available": "利用可能",
-    "authorizing": "承認中",
-    "charging": "充電中",
-    "finishedCharging": "充電完了",
-    "charger": "充電器",
-    "chargeHistory": "充電履歴"
-  }
 }
