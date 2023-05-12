@@ -77,6 +77,7 @@ Portuguese: pt (Português)
 Spanish: es (Español)
 Swedish: sv (Svenska)
 ```
+
 Api free: yes
 <p>
 development status: Complete 
