@@ -78,5 +78,5 @@
     "finishedCharging": "Lataus valmis",
     "charger": "Laturi",
     "chargeHistory": "Lataushistoria"
-  },
+  }
 }
