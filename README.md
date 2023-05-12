@@ -35,7 +35,7 @@ In MagicMirror/config/config.js
     username: "YOUR_USERNAME",
     password: "YOUR_PASSWORD",
     updateInterval: 30000,
-    lang: "swe",
+    lang: "sv",
     enableChargeHistory: true,
     charger: "all",
     showHistoryEntries: 5 
