@@ -7,7 +7,7 @@
     "charger": "Charger",
     "chargeHistory": "Charge history"
   },
-  "swe": {
+  "sv": {
     "available": "Ledigt",
     "authorizing": "Auktoriserar",
     "charging": "Laddar",
@@ -15,7 +15,7 @@
     "charger": "Laddare",
     "chargeHistory": "Laddningshistorik"
   },
-  "dan": {
+  "da": {
     "available": "Tilgængelig",
     "authorizing": "Autoriserer",
     "charging": "Oplader",
@@ -23,7 +23,7 @@
     "charger": "Oplader",
     "chargeHistory": "Opladningshistorik"
   },
-  "nor": {
+  "no": {
     "available": "Tilgjengelig",
     "authorizing": "Autoriserer",
     "charging": "Lader",
@@ -31,7 +31,7 @@
     "charger": "Lader",
     "chargeHistory": "Ladehistorikk"
   },
-  "isl": {
+  "is": {
     "available": "Laus",
     "authorizing": "Að heimila",
     "charging": "Hleður",
@@ -39,7 +39,7 @@
     "charger": "Hleðslutæki",
     "chargeHistory": "Hleðslusaga"
   },
-  "dut": {
+  "de": {
     "available": "Beschikbaar",
     "authorizing": "Autoriseren",
     "charging": "Opladen",
@@ -47,7 +47,7 @@
     "charger": "Oplader",
     "chargeHistory": "Laadgeschiedenis"
   },
-  "chi": {
+  "zh": {
     "available": "可用",
     "authorizing": "授权中",
     "charging": "充电中",
@@ -55,7 +55,7 @@
     "charger": "充电器",
     "chargeHistory": "充电历史"
   },
-  "kor": {
+  "ko": {
     "available": "사용 가능",
     "authorizing": "인증 중",
     "charging": "충전 중",
@@ -63,7 +63,7 @@
     "charger": "충전기",
     "chargeHistory": "충전 기록"
   },
-  "pol": {
+  "pl": {
     "available": "Dostępny",
     "authorizing": "Autoryzacja",
     "charging": "Ładowanie",
@@ -71,7 +71,7 @@
     "charger": "Ładowarka",
     "chargeHistory": "Historia ładowania"
   },
-  "fin": {
+  "fi": {
     "available": "Saatavilla",
     "authorizing": "Valtuuttaminen",
     "charging": "Lataaminen",
@@ -79,7 +79,7 @@
     "charger": "Laturi",
     "chargeHistory": "Lataushistoria"
   },
-"spa": {
+"es": {
     "available": "Disponible",
     "authorizing": "Autorizando",
     "charging": "Cargando",
@@ -87,7 +87,7 @@
     "charger": "Cargador",
     "chargeHistory": "Historial de carga"
   },
-  "ger": {
+  "de": {
     "available": "Verfügbar",
     "authorizing": "Autorisierung",
     "charging": "Laden",
@@ -95,7 +95,7 @@
     "charger": "Ladegerät",
     "chargeHistory": "Ladehistorie"
   },
-  "fre": {
+  "fr": {
     "available": "Disponible",
     "authorizing": "Autorisation",
     "charging": "En charge",
@@ -103,7 +103,7 @@
     "charger": "Chargeur",
     "chargeHistory": "Historique de charge"
   },
-  "ita": {
+  "it": {
     "available": "Disponibile",
     "authorizing": "Autorizzazione",
     "charging": "In carica",
@@ -111,7 +111,7 @@
     "charger": "Caricatore",
     "chargeHistory": "Storico di carica"
   },
-  "por": {
+  "pt": {
     "available": "Disponível",
     "authorizing": "Autorizando",
     "charging": "Carregando",
@@ -119,7 +119,7 @@
     "charger": "Carregador",
     "chargeHistory": "Histórico de carga"
   },
-  "hin": {
+  "hi": {
     "available": "उपलब्ध",
     "authorizing": "प्राधिकरण",
     "charging": "चार्ज हो रहा है",
@@ -127,7 +127,7 @@
     "charger": "चार्जर",
     "chargeHistory": "चार्ज इतिहास"
   },
-  "ara": {
+  "ar": {
     "available": "متاح",
     "authorizing": "تفويض",
     "charging": "شحن",
@@ -135,7 +135,7 @@
     "charger": "شاحن",
     "chargeHistory": "تاريخ الشحن"
   },
-  "jpn": {
+  "ja": {
     "available": "利用可能",
     "authorizing": "承認中",
     "charging": "充電中",
