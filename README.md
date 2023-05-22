@@ -24,8 +24,6 @@ git clone https://github.com/PierreGode/MMM-ZAPTEC.git
 ```
 In MagicMirror/config/config.js
 
-
-
 ```
 {
   module: "MMM-ZAPTEC",
@@ -52,7 +50,7 @@ showHistoryEntries: 5 // define the max amount of charge history entries to show
 
 yes sorry for username and password but the token only had a ttl of 24H
 
-Restart magic mirror.
+Restart magic mirror.(pm2 restart)
 After starting the module can take up to 60 sec to pull the first data.
 
 ```
