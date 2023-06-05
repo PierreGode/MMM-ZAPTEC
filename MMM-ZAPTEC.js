@@ -21,11 +21,18 @@ Module.register("MMM-ZAPTEC", {
     this.getTranslations();
   },
 
-  // Override dom generator.
+// Override dom generator.
 getDom: function() {
   var wrapper = document.createElement("div");
   wrapper.className = "small align-left";
   var chargerIndex = this.config.charger === "all" ? null : parseInt(this.config.charger) - 1;
+
+  // Check if charger data is empty
+  if (this.chargerData.length === 0) {
+    wrapper.innerHTML = "<span class='small fa fa-refresh fa-spin fa-fw'></span>";
+    wrapper.className = "small dimmed";
+    return wrapper;
+  }
 
   // Display charger data
   for (var i = 0; i < this.chargerData.length; i++) {
@@ -56,6 +63,7 @@ getDom: function() {
       break;
     }
   }
+  
   // Display charge history data
   if (this.config.enableChargeHistory && this.chargeHistoryData.length > 0) {
     var chargeHistoryWrapper = document.createElement("div");
