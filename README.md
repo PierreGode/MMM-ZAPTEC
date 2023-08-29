@@ -48,7 +48,7 @@ or set to a specific charger number (1-99) to display data for only that charge,
 showHistoryEntries: 5 // define the max amount of charge history entries to show
 ```
 
-yes sorry for username and password but the token only had a ttl of 24H
+yes sorry for username and password but the token only had a ttl of 24H / will find a resolition for this in the future.
 
 Restart magic mirror.(pm2 restart)
 After starting the module can take up to 60 sec to pull the first data.
