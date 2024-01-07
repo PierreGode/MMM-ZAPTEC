@@ -1,6 +1,6 @@
 # MMM-ZAPTEC 
 
-This is a [Magic Mirror](https://magicmirror.builders/) module for connecting to the ZAPTEC API
+This is a [MagicMirror²](https://magicmirror.builders/) module for connecting to the ZAPTEC API
 and showing charger information on your Mirror.
 18 languages supported
 
