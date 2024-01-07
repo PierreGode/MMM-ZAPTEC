@@ -25,6 +25,9 @@ git clone https://github.com/PierreGode/MMM-ZAPTEC.git
 In MagicMirror/config/config.js
 
 ```
+
+## Config
+
 {
   module: "MMM-ZAPTEC",
   position: "bottom_right",
