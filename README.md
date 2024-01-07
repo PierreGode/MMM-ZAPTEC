@@ -15,7 +15,8 @@ and showing charger information on your Mirror.
 
 
 
-How to install:
+## How to install
+
 ```
 cd MagicMirror/modules
 ```
@@ -43,6 +44,8 @@ In MagicMirror/config/config.js
  }
 },
 ```
+
+## Description
 
 ```
 charger: "all", // set to "all" to display data for all chargers, 
