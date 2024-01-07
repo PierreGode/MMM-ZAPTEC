@@ -8,6 +8,8 @@ and showing charger information on your Mirror.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J2EARPK)
 
+## Screenshots
+
 ![image](https://user-images.githubusercontent.com/8579922/233061820-5e3606fb-693b-4d10-bdaf-df3b4048f9a5.png)
 ![image](https://user-images.githubusercontent.com/8579922/236442228-eb3d4f31-8324-4f9f-b887-34be1ae1b63e.png)
 ![image](https://user-images.githubusercontent.com/8579922/236442489-1de8acd2-7890-4389-a0c5-94275a33a664.png)
